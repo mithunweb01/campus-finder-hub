@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<head>/h1><style>
+        body {
+            background-color: #fff8dc;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ffcc00;
+            color: darkred;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background-color: #333;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            color: yellow;
+            text-decoration: underline;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #b22222;
+            margin-top: 30px;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+
+        .college-box {
+            background-color: #fafad2;
+            border: 2px solid #888;
+            border-radius: 10px;
+            width: 80%;
+            margin: 20px auto;
+            padding: 15px;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .college-box img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 3px solid #d2691e;
+        }
+
+        .college-box pre {
+            white-space: pre-wrap;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+</head>
+
+    
+
+<body>
+    <h1 style="text-align: center;"
+    >top 5 engineering colleges in chennai</h1>
+    <div class="college-box">
+    <h3>1.panimmalar engineering college</h3>
+    
+    <pre style="font-size: 15px;">panimalar is the one of the famous college offering many courses.
+cutoff required :116marks and above aprrox 
+
+adresss:BANGALORE TRUNK ROAD, VARADHARAJAPURAM, Poonamallee, Chennai, Tamil Nadu 600123
+
+fees starting  from :50,000 for a year
+
+courses:offering every engineering courses and courses related to computer
+</pre></div>
+<div class="college-box">
+<h3>2.vellamal engineering college</h3>
+
+<pre>Velammal Engineering College (VEC) in Chennai is a private,
+autonomous institution established in 1995 that offers undergraduate
+and postgraduate engineering and management programs
+cutoff required :124 and above approx
+
+address : Velammal Nagar, Ambattur-Redhills Road, Surapet, Chennai  600 066,Tamil Nadu, India.
+It is located inside the Velammal New Gen Park and is near the Pozhal Jail.
+
+fees:starts from 35,000 
+
+courses :all engineering courses</pre>
+</div >
+<div class="college-box">
+<h3>
+
+3.Rajalakshmi engineering college</h3>
+
+<pre>Rajalakshmi Engineering College (REC) in Chennai is an autonomous, private institution established in 1997 by the Rajalakshmi Educational Trust.
+ Affiliated with Anna University, it is approved by AICTE and has received high accreditation grades, including NAAC A++. The college provides a variety of
+  undergraduate and postgraduate programs and aims to produce competent, ethical professionals through a mix of classroom learning and other training activities. 
+Key features of Rajalakshmi Engineering College:
+Accreditation and recognition:
+Accredited with the highest grade of A++ by NAAC.
+Accredited by the National Board of Accreditation (NBA).
+Recognized by the UGC under 12(b) status.
+Recognized as a Scientific and Industrial Research Organization (SIRO) by the Department of Scientific and Industrial Research (DSIR).
+
+cutoff required:Computer Science and Engineering (CSE) at 180-195,
+Electronics and Communication Engineering (ECE) at 175-190, Mechanical Engineering at 160-180, and Civil Engineering at 150-170.
+
+adresss:Rajalakshmi Engineering College is located at Thandalam, Kanchipuram - 602105 (Rajalakshmi Nagar)
+
+fees:₹41,000 to ₹5.8 Lakhs for all courses
+</pre></div>
+<div class="college-box">
+<h3>4.RMK engineering college</h3>
+
+<pre>
+ Engineering College is a private, autonomous institution located in Kavaraipettai, Tamil Nadu, established in 1995 by the Lakshmikanthammal Educational Trust.
+ It is affiliated with Anna University, accredited by NAAC with an A+ grade, and has received A+ Grade accreditation from the AICTE. The college offers a range of undergraduate
+  and postgraduate engineering programs and has a strong focus on placements, student-faculty interaction, and research. 
+Key features
+Accreditation and affiliation: Affiliated with Anna University, Chennai. It is accredited by the National Assessment and Accreditation Council (NAAC) with
+ an A+ grade and has received A+ Grade accreditation from the AICTE. All departments are accredited by the National Board of Accreditation (NBA).
+Establishment: Established in 1995, making it one of the older private engineering colleges in the region.
+
+addres :R.M.K. Engineering College, 206, Taluk, Gummidipoondi, Kavaraipettai, Tamil Nadu 601206
+
+fees and courses:B.E. / B.Tech	₹2.05 Lakhs - ₹3.48 Lakhs (for 4 years)
+     B.E. / B.Tech (Lateral Entry)	₹2.61 Lakhs (for 3 years)
+     M.E.	₹60,000 per year
+     mCA	₹41,000 (for 2 years)
+     MBA	₹35,000 per year</pre></div>
+<div class="college-box">
+<h3>5.sri sairam engineering college</h3>
+<pre><pre> Sri Sairam Engineering College (SSEC) is one of the leading private
+engineering colleges in Chennai, founded in 1995 by MJF.Ln.Leomuthu under the Leo Muthu Educational Trust. 
+The college is affiliated with Anna University and approved by AICTE. It has earned a reputation for
+academic excellence, research initiatives, and placement opportunities. Accreditations and Recognition:
+• Accredited by NAAC with an ‘A+’ grade. • NBA accredited for several departments including CSE, ECE,
+EEE, Mechanical, and IT. • ISO 9001:2015 certified institution. Cutoff required:
+    
+ Cutoff scores for popular branches (approx): - CSE: 175 – 195 - ECE: 170 – 190 - Mechanical: 160 – 180 - IT: 170 – 190 
+ 
+ Address: Sri Sairam Engineering College, Sai Leo Nagar, West Tambaram, Chennai – 600044, Tamil Nadu, India. 
+ Fees: Approx. ₹50,000 – ₹1,50,000 per year depending on the course and quota. Courses offered: B.E. / B.Tech in CSE, ECE, IT, Mechanical, 
+ Civil, EEE, AI & Data Science, and Biomedical Engineering. Postgraduate programs include M.E., MBA, and MCA. Key Features
+ : • Strong placement record with top companies like Infosys, TCS, Cognizant, and Wipro. • Focus on innovation, entrepreneurship, and research.
+  • Excellent infrastructure with modern labs and hostel facilities.</pre></div>
+</body>
