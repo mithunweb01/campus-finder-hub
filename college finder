@@ -1,28 +1,33 @@
-<!DOCTYPE  html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>college finder</title>
-        
-        
-    </head>
-    <body  style="color: red;background-color: yellow;">
-    <pre>thhis  shows top colleges in popular cities in tamilnadu ,click the link and see your prefered colleges</pre>
-    <script>alert("click link to redirect to your deserved website ")</script>
+<head>
+    <title>College Finder</title>
+</head>
 
-        <h1>welcome to college finder</h1>
-        <pre style="font-size: 20px;">this websutes help you choose your   colleges   in Chennai
-we show you many colleges and features .
-<a href="c:\Users\admin\engineering colleges in chennai.html">top 5 engineering colleges in chennai</a>
-<a href="c:\Users\admin\medical colleges.html">top 5 medical colleges</a>
-<a href="c:\Users\admin\Desktop\html and college websit\aarts and iencce college chennai.html">top 5 arts  and science colleges </a>
-<a href="c:\Users\admin\Desktop\html and college websit\engiinneering  pondy.html">top 5 engineering colleges in pondycherry</a>
-<a href="c:\Users\admin\medical pondyy.html">Top 5 medical colleges in Pondicherry</a>
-<a href="c:\Users\admin\engineering coimbatore.html">top 5 engineering colleges in coimbatore</a>
-<a href="c:\Users\admin\arts pondy.html">top 5 arts and science colleges pondycherry</a>
-<a href="c:\Users\admin\medical college coimbatore.html">top 5 medical colleges in coimbatore</a>
-<a href="c:\Users\admin\arts and sci coimbatore.html">top 5 arts and science colleges in coimbatore</a>
-        
+<body style="color: red; background-color: yellow;">
+    <script>
+        alert("Click a link to redirect to your college list!");
+    </script>
 
+    <h1>Welcome to College Finder</h1>
 
-        </pre>
-    </body>
+    <pre style="font-size: 18px;">
+This site shows top colleges in popular cities in Tamil Nadu.
+Click the link below to see your preferred colleges:
+    </pre>
+
+    <pre style="font-size: 20px;">
+<a href="engineering-chennai.html">Top 5 Engineering Colleges in Chennai</a>
+<a href="medical-chennai.html">Top 5 Medical Colleges in Chennai</a>
+<a href="arts-science-chennai.html">Top 5 Arts and Science Colleges in Chennai</a>
+
+<a href="engineering-pondicherry.html">Top 5 Engineering Colleges in Pondicherry</a>
+<a href="medical-pondicherry.html">Top 5 Medical Colleges in Pondicherry</a>
+<a href="arts-science-pondicherry.html">Top 5 Arts and Science Colleges in Pondicherry</a>
+
+<a href="engineering-coimbatore.html">Top 5 Engineering Colleges in Coimbatore</a>
+<a href="medical-coimbatore.html">Top 5 Medical Colleges in Coimbatore</a>
+<a href="arts-science-coimbatore.html">Top 5 Arts and Science Colleges in Coimbatore</a>
+    </pre>
+</body>
+</html>
