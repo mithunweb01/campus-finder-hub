@@ -1,0 +1,28 @@
+<!DOCTYPE  html>
+<html>
+    <head>
+        <title>college finder</title>
+        
+        
+    </head>
+    <body  style="color: red;background-color: yellow;">
+    <pre>thhis  shows top colleges in popular cities in tamilnadu ,click the link and see your prefered colleges</pre>
+    <script>alert("click link to redirect to your deserved website ")</script>
+
+        <h1>welcome to college finder</h1>
+        <pre style="font-size: 20px;">this websutes help you choose your   colleges   in Chennai
+we show you many colleges and features .
+<a href="c:\Users\admin\engineering colleges in chennai.html">top 5 engineering colleges in chennai</a>
+<a href="c:\Users\admin\medical colleges.html">top 5 medical colleges</a>
+<a href="c:\Users\admin\Desktop\html and college websit\aarts and iencce college chennai.html">top 5 arts  and science colleges </a>
+<a href="c:\Users\admin\Desktop\html and college websit\engiinneering  pondy.html">top 5 engineering colleges in pondycherry</a>
+<a href="c:\Users\admin\medical pondyy.html">Top 5 medical colleges in Pondicherry</a>
+<a href="c:\Users\admin\engineering coimbatore.html">top 5 engineering colleges in coimbatore</a>
+<a href="c:\Users\admin\arts pondy.html">top 5 arts and science colleges pondycherry</a>
+<a href="c:\Users\admin\medical college coimbatore.html">top 5 medical colleges in coimbatore</a>
+<a href="c:\Users\admin\arts and sci coimbatore.html">top 5 arts and science colleges in coimbatore</a>
+        
+
+
+        </pre>
+    </body>
