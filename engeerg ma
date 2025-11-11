@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Top 5 Engineering Colleges in Madurai</title>
+  <style>
+    body {
+      background‑color: #fff8dc;
+      font‑family: Arial, Helvetica, sans‑serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background‑color: #ffcc00;
+      color: darkred;
+      text‑align: center;
+      padding: 20px;
+    }
+    .section‑title {
+      text‑align: center;
+      color: #b22222;
+      margin‑top: 30px;
+      font‑size: 28px;
+      text‑transform: uppercase;
+    }
+    .college‑box {
+      background‑color: #fafad2;
+      border: 2px solid #888;
+      border‑radius: 10px;
+      width: 80%;
+      margin: 20px auto;
+      padding: 15px;
+      box‑shadow: 4px 4px 10px rgba(0,0,0,0.2);
+    }
+    .college‑box h3 {
+      margin‑top: 0;
+    }
+    .college‑box pre {
+      white‑space: pre‑wrap;
+      font‑size: 16px;
+      line‑height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <header><h1>Top 5 Engineering Colleges in Madurai</h1></header>
+
+  <div class="college‑box">
+    <h3>1. Thiagarajar College of Engineering (TCE)</h3>
+    <pre>
+Description:
+Established and well‑reputed autonomous engineering college in Madurai, offering numerous B.Tech & M.Tech courses and having strong industry linkages. :contentReference[oaicite:1]{index=1}
+
+Address:
+Tirupparankundram, Madurai, Tamil Nadu, India. :contentReference[oaicite:2]{index=2}
+
+Fees:
+approx. ₹ 82,000 per annum (as per one source) :contentReference[oaicite:3]{index=3}
+
+Phone:
+[To be verified]
+
+Official Website:
+[Insert URL]
+
+Courses:
+B.Tech in CSE, ECE, Mechanical, etc.
+
+Cutoff:
+Rankings show it in the NIRF 101‑150 band for Engineering. :contentReference[oaicite:4]{index=4}
+    </pre>
+  </div>
+
+  <div class="college‑box">
+    <h3>2. Velammal College of Engineering and Technology (VCET)</h3>
+    <pre>
+Description:
+Private engineering college near Madurai, offers a variety of branches including Computer Science, Electronics, Mechanical and has decent placement records. :contentReference[oaicite:6]{index=6}
+
+Address:
+Viraganoor Ring Road, Madurai, Tamil Nadu, India. :contentReference[oaicite:7]{index=7}
+
+Fees:
+Approximately ₹ 55,000 per annum (as per one source) :contentReference[oaicite:8]{index=8}
+
+Phone:
+[To be verified]
+
+Official Website:
+[Insert URL]
+
+Courses:
+B.Tech in CSE, AI & DS, Mechanical, ECE.
+
+Cutoff:
+Relative ranking among private colleges in Madurai. :contentReference[oaicite:9]{index=9}
+    </pre>
+  </div>
+
+  <div class="college‑box">
+    <h3>3. Anna University Regional Campus Madurai</h3>
+    <pre>
+Description:
+Regional campus of Anna University offering engineering courses; considered among more affordable options in Madurai. :contentReference[oaicite:11]{index=11}
+
+Address:
+Madurai, Tamil Nadu, India. :contentReference[oaicite:12]{index=12}
+
+Fees:
+Approx. ₹ 43,800 per year (according to one source) :contentReference[oaicite:13]{index=13}
+
+Phone:
+[To be verified]
+
+Official Website:
+[Insert URL]
+
+Courses:
+B.E/B.Tech in various branches.
+
+Cutoff:
+Affordability and placements cited as strong for this campus. :contentReference[oaicite:14]{index=14}
+    </pre>
+  </div>
+
+  <div class="college‑box">
+    <h3>4. Fatima Michael College of Engineering and Technology</h3>
+    <pre>
+Description:
+Private engineering college on Sivagangai Main Road, Madurai offering multiple engineering disciplines. :contentReference[oaicite:16]{index=16}
+
+Address:
+Sivagangai Main Road, Madurai, Tamil Nadu, India. :contentReference[oaicite:17]{index=17}
+
+Fees:
+[To be verified]
+
+Phone:
+[To be verified]
+
+Official Website:
+[Insert URL]
+
+Courses:
+B.E/B.Tech in Automobile, Civil, CSE, ECE etc.
+
+Cutoff:
+Among the listed engineering colleges though comparatively lower in ranking. :contentReference[oaicite:18]{index=18}
+    </pre>
+  </div>
+
+  <div class="college‑box">
+    <h3>5. Ultra College of Engineering & Technology (UCET)</h3>
+    <pre>
+Description:
+Co‑educational institution in Madurai offering engineering courses; originally started as women’s college and later converted to mixed. :contentReference[oaicite:20]{index=20}
+
+Address:
+6 km from Mattuthavani Bus Terminus on Chennai‑Madurai highway, Madurai, Tamil Nadu, India. :contentReference[oaicite:21]{index=21}
+
+Fees:
+[To be verified] approx ₹ 30,000 per annum (as per one listing) :contentReference[oaicite:22]{index=22}
+
+Phone:
+[To be verified]
+
+Official Website:
+[Insert URL]
+
+Courses:
+B.Tech in CSE, ECE, EEE, Mechanical etc.
+
+Cutoff:
+[To be verified]
+    </pre>
+  </div>
+
+</body>
+</html>
