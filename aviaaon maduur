@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Top 5 Aviation Colleges in Madurai</title>
+  <style>
+    body {
+      background-color: #fff8dc;
+      font-family: Arial, Helvetica, sans‑serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #ffcc00;
+      color: darkred;
+      text-align: center;
+      padding: 20px;
+    }
+    .section-title {
+      text-align: center;
+      color: #b22222;
+      margin-top: 30px;
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+    .college-box {
+      background-color: #fafad2;
+      border: 2px solid #888;
+      border-radius: 10px;
+      width: 80%;
+      margin: 20px auto;
+      padding: 15px;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+    }
+    .college-box h3 {
+      margin-top: 0;
+    }
+    .college-box pre {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <header><h1>Top 5 Aviation Colleges in Madurai</h1></header>
+
+  <div class="college-box">
+    <h3>1. Boston College, Madurai</h3>
+    <pre>
+Description:
+Offers B.Sc Aviation and BBA Airline & Airport Management with strong industry tie‑ups and placement support
+
+Address:
+2A, Sivanandha Salai, Arappalayam Cross Road, Madurai‑625016. 
+
+Fees:
+[To be verified] — for B.Sc Aviation program there are mentions of affordable structure.
+
+Phone:
++91 81440‑43222 :contentReference[oaicite:3]{index=3}
+
+Official Website:
+https://bostoncolleges.in/ :contentReference[oaicite:4]{index=4}
+
+Courses:
+B.Sc Aviation (3 years), BBA Airline & Airport Management, Diploma & Certificate program
+
+Cutoff:
+[To be verified]
+    </pre>
+  </div>
+
+  <div class="college-box">
+    <h3>2. KR Arts & Science College, Madurai (Dept. of Aviation Management)</h3>
+    <pre>
+Description:
+Department of Aviation Management offering BBA Aviation Management with training partners in the industry (MY SKY Fly Aviation etc). 
+
+Address:
+P.Thambipatti, Peraiyur TK, via T.Kallupatti, Madurai‑625703. 
+
+Fees:
+[To be verified]
+
+Phone:
+04549‑299877 / 80722‑97109 :contentReference[oaicite:8]{index=8}
+
+Official Website:
+https://krcolleges.in/department-of-aviation-management/ 
+
+Courses:
+BBA Aviation Management. :contentReference[oaicite:10]{index=10}
+
+Cutoff:
+[To be verified]
+    </pre>
+  </div>
+
+  <div class="college-box">
+    <h3>3. National Institute of Management & Science (NIMS), Madurai</h3>
+    <pre>
+Description:
+Offers BBA (and MBA) in Airline & Airport Management in collaboration with Alagappa University, with dual certifications and on‑job training. 
+
+Address:
+[To be verified] – (Address not clearly found in the sources I located)
+
+Fees:
+[To be verified]
+
+Phone:
+[To be verified]
+
+Official Website:
+https://www.nationalcollege.co.in/ :contentReference[oaicite:13]{index=13}
+
+Courses:
+BBA Airlines & Airport Management (3 years), Diploma in Airline & Airport Management (6 months) etc. 
+
+Cutoff:
+[To be verified]
+    </pre>
+  </div>
+
+  <div class="college-box">
+    <h3>4. Anna College, Madurai – Aviation & Hospitality (Aviation Management Dept.)</h3>
+    <pre>
+Description:
+Offers BBA Aviation & Diploma in Air‑Hostess training, with flight training modules and industry sim labs. 
+
+Address:
+37D Aranaga Salai, TPK Main Road, Pasumalai, Madurai‑625004. :contentReference[oaicite:16]{index=16}
+
+Fees:
+For BBA Aviation: Rs 75,000 per year (Total ~Rs 2.25 L for 3 years) for the Aviation progam
+
+Phone:
+[To be verified]
+
+Official Website:
+https://annacollege.com/ :contentReference[oaicite:18]{index=18}
+
+Courses:
+BBA Aviation Management, Diploma in Air‑Hostess, B.Sc Aviation etc.
+
+Cutoff:
+[To be verified]
+    </pre>
+  </div>
+
+  <div class="college-box">
+    <h3>5. Remo International College of Aviation, Tamil Nadu</h3>
+    <pre>
+Description:
+A well‑known aviation training institute with international accreditations and placement tie‑ups, though more prominent in Chennai than Madurai. 
+
+Address:not sure
+
+Fees:
+[To be verified]
+
+Phone:
++91 90211‑17834 [from earlier unverified listing]
+
+Official Website:
+https://www.remocollege.com/ 
+
+Courses:
+Diploma/Certificate in Aviation, Cabin Crew, Ground Handling, etc.
+
+Cutoff:
+[To be verified]
+    </pre>
+  </div>
+
+</body>
+</html>
