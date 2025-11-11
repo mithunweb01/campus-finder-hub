@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #fff8dc;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #ffcc00;
+      color: darkred;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      color: #b22222;
+      margin-top: 30px;
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+
+    .college-box {
+      background-color: #fafad2;
+      border: 2px solid #888;
+      border-radius: 10px;
+      width: 80%;
+      margin: 20px auto;
+      padding: 15px;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .college-box h3 {
+      margin-top: 0;
+    }
+
+    .college-box pre {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <header><h1>Top 5 Engineering Colleges in Trichy</h1></header>
+
+  <div class="college-box">
+    <h3>1. National Institute of Technology, Tiruchirappalli (NIT Trichy)</h3>
+    <pre>
+Description:
+One of India’s premier institutes of engineering and technology, located in Tiruchirappalli. Offers multiple undergraduate and postgraduate engineering programs with strong placement records.
+
+Address:
+NH‑67, Tiruchirappalli – 620015, Tamil Nadu, India
+
+Fees:
+Varies by branch (typically high as it is an NIT)
+
+Phone:
++91‑431‑2503000
+
+Official Website:
+https://www.nitt.edu
+
+Courses:
+B.Tech in CSE, ECE, Mechanical, Civil, Chemical, Metallurgical & Materials, Production etc.
+
+Cutoff (JEE Main 2024/25 approx ‑ general category):
+CSE: closing rank ~1 019, Civil: ~15 421, EEE: ~5 244, etc. :contentReference[oaicite:1]{index=1}
+    </pre>
+  </div>
+
+  <div class="college-box">
+    <h3>2. Trichy Engineering College (TEC)</h3>
+    <pre>
+Description:
+A self‑financing engineering college in Konalai, Tiruchirappalli, established in 1998, offering a wide range of engineering branches under the affiliation of Anna University.
+
+Address:
+Somu Nagar, Konalai, Mannachanallur (Tk.), Tiruchirappalli District – 621132, Tamil Nadu, India :contentReference[oaicite:3]{index=3}
+
+Fees:
+Approximate annual fees: Rs.73,900 to Rs.74,900 (for some branches) :contentReference[oaicite:4]{index=4}
+
+Phone:
+0431‑2743135 :contentReference[oaicite:5]{index=5}
+
+Official Website:
+http://www.trichyengg.ac.in :contentReference[oaicite:6]{index=6}
+
+Courses:
+B.E./B.Tech in Civil, CSE, ECE, EEE, Mechanical, Mechatronics, IT etc. :contentReference[oaicite:7]{index=7}
+
+Cutoff:
+For many branches ~100+ marks (TNEA) for OC category in recent years (e.g., 102.50 in 2023 for general). :contentReference[oaicite:8]{index=8}
+    </pre>
+  </div>
+
+  <div class="college-box">
+    <h3>3. M.A.M. College of Engineering</h3>
+    <pre>
+Description:
+Located on Trichy‑Chennai Trunk Road, Siruganur, Tiruchirappalli, offers undergraduate engineering programs across core branches, with focus on practical learning.
+
+Address:
+Trichy‑Chennai Trunk Road, Siruganur, Tiruchirappalli – 621105, Tamil Nadu, India :contentReference[oaicite:10]{index=10}
+
+Fees:
+(You’ll need to fill in the current fees) 
+
+Phone:
+0431‑2650550 :contentReference[oaicite:11]{index=11}
+
+Official Website:
+(Please verify; fill in the correct link)
+
+Courses:
+B.E./B.Tech in Civil, CSE, EEE, ECE, IT, Mechanical etc. :contentReference[oaicite:12]{index=12}
+
+Cutoff:
+2023 OC ~141 marks (last seat filled) for some branches. :contentReference[oaicite:13]{index=13}
+    </pre>
+  </div>
+
+  <!-- You would add two more college-box divs (#4 and #5) here following the same structure -->
+</body>
+</html>
