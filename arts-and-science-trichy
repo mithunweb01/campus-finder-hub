@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #fff8dc;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0; padding: 0;
+    }
+    header {
+      background-color: #ffcc00;
+      color: darkred;
+      text-align: center;
+      padding: 20px;
+    }
+    .section-title {
+      text-align: center;
+      color: #b22222;
+      margin-top: 30px;
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+    .college-box {
+      background-color: #fafad2;
+      border: 2px solid #888;
+      border-radius: 10px;
+      width: 80%;
+      margin: 20px auto;
+      padding: 15px;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+    }
+    .college-box h3 {
+      margin-top: 0;
+    }
+    .college-box pre {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <header><h1>Top 5 Arts & Science Colleges in Trichy</h1></header>
+
+  <div class="college-box">
+    <h3>1. St. Joseph’s College, Trichy</h3>
+    <pre>
+Description:
+A premier autonomous arts & science college affiliated with Bharathidasan University. Offers UG, PG & research programs in science, arts, and commerce.
+
+Address:
+Tiruchirappalli – 620002, Tamil Nadu, India
+
+Fees:
+UG courses approx ₹20,000–₹50,000/year depending on program.
+
+Phone:
++91-431-2703210
+
+Official Website:
+https://sjctni.edu
+
+Courses:
+B.Sc, B.A, B.Com, M.Sc, M.A, M.Com, PhD programs in arts & science streams
+
+Cutoff:
+Depends on program; generally merit-based.
+    </pre>
+  </div>
+
+  <div class="college-box">
+    <h3>2. Bishop Heber College, Trichy</h3>
+    <pre>
+Description:
+Autonomous inst
