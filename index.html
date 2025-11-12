@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
- <link rel="canonical" href="https://mithunweb01.github.io/your‑page‑name" />
+ <link rel="canonical" href="https://mithunweb01.github.io/your-page-name" />
 
  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3W6CSF55J1"></script>
@@ -53,6 +53,76 @@
     ul li a:hover {
         text-decoration: underline;
     }
+
+    /* --- Flip Board Section --- */
+    #flip-board {
+        text-align: center;
+        background: #f5f7fb;
+        padding: 50px 20px;
+        border-radius: 10px;
+        margin-top: 40px;
+    }
+    .flip-board {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    .flip-card {
+        background-color: transparent;
+        width: 250px;
+        height: 160px;
+        perspective: 1000px;
+    }
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+    }
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .flip-card-front {
+        background: linear-gradient(135deg, #ffffff, #dbe9ff);
+        color: #003366;
+        font-weight: bold;
+    }
+    .flip-card-back {
+        background: #0066cc;
+        color: white;
+        transform: rotateY(180deg);
+    }
+    .flip-card-back a {
+        color: #333;
+        background: #ffcc00;
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-weight: bold;
+        margin-top: 8px;
+    }
+    @media (max-width: 600px) {
+        .flip-card {
+            width: 90%;
+        }
+    }
 </style>
 </head>
 
@@ -71,7 +141,6 @@
 <ul>
     <li><a href="engineering_colleges_in_chennai.html">Top 5 Engineering Colleges in Chennai</a></li>
     <li><a href="medical_college_in_chennai.html">Top 5 Medical Colleges in Chennai</a></li>
-    <li><a href="medical_colleges_in-chhenai.html">Top 5 Medical Colleges in Chennai (alternate)</a></li>
     <li><a href="arts-science_college_chennai.html">Top 5 Arts and Science Colleges in Chennai</a></li>
 </ul>
 
@@ -103,5 +172,60 @@
     <li><a href="engeerg-ma.html">Top 5 Engineering Colleges in Madurai</a></li>
 </ul>
 
+<!-- 🌟 New Flip Board Section -->
+<section id="flip-board">
+  <h2 style="color:#003366;">Quick College Finder</h2>
+  <div class="flip-board">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          Chennai – Engineering
+        </div>
+        <div class="flip-card-back">
+          <h3>Top 5 Engineering Colleges</h3>
+          <a href="engineering_colleges_in_chennai.html">View</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          Coimbatore – Medical
+        </div>
+        <div class="flip-card-back">
+          <h3>Top 5 Medical Colleges</h3>
+          <a href="medical_college_coimbatore.html">View</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          Trichy – Arts & Science
+        </div>
+        <div class="flip-card-back">
+          <h3>Top 5 Arts & Science Colleges</h3>
+          <a href="arts-and-science-trichy.html">View</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          Pondicherry – Engineering
+        </div>
+        <div class="flip-card-back">
+          <h3>Top 5 Engineering Colleges</h3>
+          <a href="engineering_pondy.html">View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </body>
 </html>
+
