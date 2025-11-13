@@ -321,58 +321,29 @@
         </div>
     </div>
 </div>
-
 <script>
-function showTab(tabId, el) {
-  document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
-  document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-  document.getElementById(tabId).style.display = "block";
-  el.classList.add("active");
-  displayMessages();
-}
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// shared messages between all tabs
-const messagesKey = "collegeFinderMessages";
-let messages = JSON.parse(localStorage.getItem(messagesKey)) || [];
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDjW_3cYR8apPFMmZqLqZh_9i2bN-1IEmY",
+  authDomain: "college-finder-279aa.firebaseapp.com",
+  projectId: "college-finder-279aa",
+  storageBucket: "college-finder-279aa.firebasestorage.app",
+  messagingSenderId: "94401695690",
+  appId: "1:94401695690:web:380de91d4f168ea2944933",
+  measurementId: "G-NYKK0LYV1S"
+};
 
-function saveMessages() {
-  localStorage.setItem(messagesKey, JSON.stringify(messages));
-}
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+  </script>
 
-function displayMessages() {
-  document.querySelectorAll(".messages-display").forEach(container => {
-    container.innerHTML = "";
-    messages.forEach(msg => {
-      const div = document.createElement("div");
-      div.classList.add("message");
-      if (msg.text.toLowerCase().startsWith("admin:")) {
-        div.innerHTML = "<strong>Admin:</strong> " + msg.text.slice(6).trim();
-        div.style.background = "#003366";
-        div.style.color = "white";
-      } else {
-        div.textContent = msg.text;
-        div.style.background = "#e6f0ff";
-      }
-      div.style.padding = "8px";
-      div.style.margin = "6px 0";
-      div.style.borderRadius = "10px";
-      container.appendChild(div);
-    });
-    container.scrollTop = container.scrollHeight;
-  });
-}
-
-function sendMessage(inputId) {
-  const input = document.getElementById(inputId);
-  const text = input.value.trim();
-  if (!text) return;
-  messages.push({ text });
-  saveMessages();
-  displayMessages();
-  input.value = "";
-}
-
-window.addEventListener("load", displayMessages);
-</script>
 </body>
 </html>
