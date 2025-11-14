@@ -1,69 +1,110 @@
-html>
+<!doctype html>
 <html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>College Finder</title>
+  <link rel="canonical" href="https://mithunweb01.github.io/campus-finder-hub/" />
+  <meta name="description" content="Find top engineering, medical, arts, and science colleges in Chennai, Coimbatore, Pondicherry, Trichy, and Madurai.">
+  <meta name="keywords" content="Colleges in Chennai, Coimbatore, Pondicherry, Trichy, Madurai, Engineering Colleges, Medical Colleges, Arts and Science Colleges, Aviation Colleges, Tamil Nadu Colleges">
+  <meta name="author" content="Mithun">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>College Finder</title>
-<link rel="canonical" href="https://mithunweb01.github.io/your-page-name" />
-<meta name="description" content="Find top engineering, medical, arts, and science colleges in Chennai, Coimbatore, Pondicherry, Trichy, and Madurai.">
-<meta name="keywords" content="Colleges in Chennai, Coimbatore, Pondicherry, Trichy, Madurai, Engineering Colleges, Medical Colleges, Arts and Science Colleges, Aviation Colleges, Tamil Nadu Colleges">
-<meta name="author" content="Mithun">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3W6CSF55J1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+    gtag('config', 'G-3W6CSF55J1');
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3W6CSF55J1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-3W6CSF55J1');
-</script>
+    // Simple click tracking for all links (won't change any file names or hrefs)
+    function sendLinkClickEvent(href, text) {
+      try {
+        gtag('event', 'link_click', {
+          'link_url': href,
+          'link_text': text || '',
+          'transport_type': 'beacon'
+        });
+      } catch(e) {
+        // ignore if gtag is not loaded yet
+        console.warn('gtag error', e);
+      }
+    }
 
-<style>
+    // Attach listeners after DOM is ready
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(e){
+          var href = a.getAttribute('href') || '';
+          var text = (a.textContent || a.innerText || '').trim();
+          // Only send event for real links (exclude empty anchors used for JS)
+          if (href && href !== '#') sendLinkClickEvent(href, text);
+        }, {passive: true});
+      });
+    });
+  </script>
+
+  <style>
+    :root{
+      --sidebar-width: 230px;
+      --accent: #ffcc00;
+      --brand: #003366;
+      --brand-2: #0055aa;
+    }
+    *{box-sizing: border-box}
     body {
         margin: 0;
         font-family: Arial, sans-serif;
         background-color: aliceblue;
         color: #333;
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
     }
 
     /* Layout */
     .container {
         display: flex;
-        height: 100vh;
+        min-height: 100vh; /* allow content grow */
+        gap: 0;
     }
 
     /* Sidebar */
     .sidebar {
-        width: 230px;
-        background-color: #003366;
+        width: var(--sidebar-width);
+        min-width: 180px;
+        background-color: var(--brand);
         color: white;
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        padding-top: 20px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        position: sticky;
+        top: 0;
+        height: calc(100vh);
+        overflow-y: auto;
     }
     .sidebar h2 {
         text-align: center;
-        margin-bottom: 20px;
-        font-size: 22px;
-        color: #ffcc00;
+        margin: 8px 12px 18px;
+        font-size: 20px;
+        color: var(--accent);
     }
     .tab-button {
-        padding: 15px 20px;
+        padding: 12px 16px;
         text-align: left;
         border: none;
         background: none;
         color: white;
-        font-size: 16px;
+        font-size: 15px;
         cursor: pointer;
         width: 100%;
         border-left: 4px solid transparent;
-        transition: 0.3s;
+        transition: 0.18s;
     }
     .tab-button:hover, .tab-button.active {
-        background-color: #0055aa;
-        border-left: 4px solid #ffcc00;
+        background-color: var(--brand-2);
+        border-left: 4px solid var(--accent);
     }
 
     /* Content Area */
@@ -71,56 +112,62 @@ html>
         flex: 1;
         padding: 20px;
         overflow-y: auto;
+        background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(245,247,251,0.9));
     }
     h1 {
         text-align: center;
         color: darkred;
-        font-size: 36px;
+        font-size: 34px;
+        margin: 8px 0 6px;
     }
-    h2 {
+    h2.content-title {
         color: darkred;
         text-align: center;
+        margin-top: 6px;
     }
-    p {
+    p.lead {
         text-align: center;
-        font-size: 18px;
+        font-size: 17px;
+        margin-top: 0;
+        max-width: 900px;
+        margin-left: auto; margin-right: auto;
     }
 
     ul {
         list-style: none;
         padding: 0;
-        max-width: 700px;
-        margin: 0 auto;
+        max-width: 760px;
+        margin: 10px auto 30px auto;
         font-size: 18px;
         line-height: 1.8;
     }
     ul li a {
-        color: blue;
+        color: #0645ad;
         text-decoration: none;
     }
-    ul li a:hover {
-        text-decoration: underline;
-    }
+    ul li a:hover { text-decoration: underline }
 
     /* Flip Board Section */
     #flip-board {
         text-align: center;
         background: #f5f7fb;
-        padding: 40px 20px;
+        padding: 28px 12px;
         border-radius: 10px;
-        margin-top: 30px;
+        margin-top: 24px;
+        max-width: 1100px;
+        margin-left: auto; margin-right: auto;
     }
     .flip-board {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 20px;
+        gap: 18px;
     }
     .flip-card {
         background-color: transparent;
-        width: 230px;
-        height: 150px;
-        perspective: 1000px;
+        width: 220px;
+        height: 140px;
+        perspective: 900px;
     }
     .flip-card-inner {
         position: relative;
@@ -128,12 +175,9 @@ html>
         height: 100%;
         transition: transform 0.6s;
         transform-style: preserve-3d;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
     }
-    .flip-card:hover .flip-card-inner {
-        transform: rotateY(180deg);
-    }
+    .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
     .flip-card-front, .flip-card-back {
         position: absolute;
         width: 100%;
@@ -149,71 +193,86 @@ html>
     }
     .flip-card-front {
         background: linear-gradient(135deg, #ffffff, #dbe9ff);
-        color: #003366;
+        color: var(--brand);
         font-weight: bold;
+        text-align: center;
+        padding: 8px;
     }
     .flip-card-back {
         background: #0066cc;
         color: white;
         transform: rotateY(180deg);
+        text-align: center;
     }
     .flip-card-back a {
         color: #333;
-        background: #ffcc00;
+        background: var(--accent);
         text-decoration: none;
         padding: 6px 12px;
         border-radius: 4px;
         font-weight: bold;
         margin-top: 8px;
+        display: inline-block;
     }
 
+    /* Responsive tweaks */
+    @media (max-width: 900px) {
+        .sidebar { width: 200px }
+        .flip-card { width: 200px; height: 130px }
+    }
     @media (max-width: 768px) {
-        .container {
-            flex-direction: column;
-        }
+        .container { flex-direction: column; }
         .sidebar {
             flex-direction: row;
             overflow-x: auto;
             width: 100%;
             height: auto;
+            position: relative;
+            padding: 8px 6px;
         }
         .tab-button {
-            flex: 1;
+            flex: 0 0 auto;
             text-align: center;
             border-left: none;
             border-bottom: 4px solid transparent;
+            padding: 10px 12px;
+            font-size: 14px;
+            white-space: nowrap;
         }
-        .tab-button.active {
-            border-bottom: 4px solid #ffcc00;
-        }
+        .tab-button.active { border-bottom: 4px solid var(--accent) }
+        .sidebar h2 { display: none }
+        #flip-board { padding: 16px }
+        .flip-board { gap: 12px }
     }
-</style>
-</head>
 
+    /* small accessibility */
+    .sr-only{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+  </style>
+</head>
 <body>
 <div class="container">
     <!-- Sidebar Tabs -->
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="Primary">
         <h2>College Finder</h2>
-        <button class="tab-button active" onclick="showTab('home')">🏠 Home</button>
-        <button class="tab-button" onclick="showTab('chennai')">Chennai</button>
-        <button class="tab-button" onclick="showTab('pondy')">Pondicherry</button>
-        <button class="tab-button" onclick="showTab('coimbatore')">Coimbatore</button>
-        <button class="tab-button" onclick="showTab('trichy')">Trichy</button>
-        <button class="tab-button" onclick="showTab('madurai')">Madurai</button>
-    </div>
+        <button class="tab-button active" onclick="showTab('home', event)" aria-current="page">🏠 Home</button>
+        <button class="tab-button" onclick="showTab('chennai', event)">Chennai</button>
+        <button class="tab-button" onclick="showTab('pondy', event)">Pondicherry</button>
+        <button class="tab-button" onclick="showTab('coimbatore', event)">Coimbatore</button>
+        <button class="tab-button" onclick="showTab('trichy', event)">Trichy</button>
+        <button class="tab-button" onclick="showTab('madurai', event)">Madurai</button>
+    </nav>
 
     <!-- Content Area -->
-    <div class="content">
+    <main class="content" id="main-content">
         <!-- Home Tab -->
-        <div id="home" class="tab-content" style="display:block;">
+        <section id="home" class="tab-content" style="display:block;">
             <h1>Welcome to College Finder</h1>
-            <p>This site shows top colleges in popular cities in Tamil Nadu. <br>
+            <p class="lead">This site shows top colleges in popular cities in Tamil Nadu. <br>
             Click a link below or use the sidebar to explore.</p>
 
             <!-- Flip Board Section -->
-            <section id="flip-board">
-              <h2>Explore All Colleges Quickly</h2>
+            <section id="flip-board" aria-labelledby="flip-title">
+              <h2 id="flip-title">Explore All Colleges Quickly</h2>
               <div class="flip-board">
 
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Chennai – Engineering</div><div class="flip-card-back"><h3>Top 5 Engineering Colleges</h3><a href="engineering_colleges_in_chennai.html">View</a></div></div></div>
@@ -238,66 +297,92 @@ html>
 
               </div>
             </section>
-        </div>
+        </section>
 
         <!-- Chennai Tab -->
-        <div id="chennai" class="tab-content" style="display:none;">
-            <h2>Chennai</h2>
+        <section id="chennai" class="tab-content" style="display:none;">
+            <h2 class="content-title">Chennai</h2>
             <ul>
                 <li><a href="engineering_colleges_in_chennai.html">Top 5 Engineering Colleges</a></li>
                 <li><a href="medical_college_in_chennai.html">Top 5 Medical Colleges</a></li>
                 <li><a href="arts-science_college_chennai.html">Top 5 Arts & Science Colleges</a></li>
             </ul>
-        </div>
+        </section>
 
         <!-- Pondicherry Tab -->
-        <div id="pondy" class="tab-content" style="display:none;">
-            <h2>Pondicherry</h2>
+        <section id="pondy" class="tab-content" style="display:none;">
+            <h2 class="content-title">Pondicherry</h2>
             <ul>
                 <li><a href="engineering_pondy.html">Top 5 Engineering Colleges</a></li>
                 <li><a href="medical_pondyy.html">Top 5 Medical Colleges</a></li>
                 <li><a href="arts_pondy.html">Top 5 Arts & Science Colleges</a></li>
             </ul>
-        </div>
+        </section>
 
         <!-- Coimbatore Tab -->
-        <div id="coimbatore" class="tab-content" style="display:none;">
-            <h2>Coimbatore</h2>
+        <section id="coimbatore" class="tab-content" style="display:none;">
+            <h2 class="content-title">Coimbatore</h2>
             <ul>
                 <li><a href="engineering_coimbatore.html">Top 5 Engineering Colleges</a></li>
                 <li><a href="medical_college_coimbatore.html">Top 5 Medical Colleges</a></li>
                 <li><a href="arts_science_coimbatore.html">Top 5 Arts & Science Colleges</a></li>
             </ul>
-        </div>
+        </section>
 
         <!-- Trichy Tab -->
-        <div id="trichy" class="tab-content" style="display:none;">
-            <h2>Trichy</h2>
+        <section id="trichy" class="tab-content" style="display:none;">
+            <h2 class="content-title">Trichy</h2>
             <ul>
                 <li><a href="engineering-trichy.html">Top 5 Engineering Colleges</a></li>
                 <li><a href="medical-trichy.html">Top 5 Medical Colleges</a></li>
                 <li><a href="arts-and-science-trichy.html">Top 5 Arts & Science Colleges</a></li>
                 <li><a href="aviation-trichy.html">Top 5 Aviation Colleges</a></li>
             </ul>
-        </div>
+        </section>
 
         <!-- Madurai Tab -->
-        <div id="madurai" class="tab-content" style="display:none;">
-            <h2>Madurai</h2>
+        <section id="madurai" class="tab-content" style="display:none;">
+            <h2 class="content-title">Madurai</h2>
             <ul>
                 <li><a href="aviaaon-maduur.html">Top 5 Aviation Colleges</a></li>
                 <li><a href="engeerg-ma.html">Top 5 Engineering Colleges</a></li>
             </ul>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
 
 <script>
-function showTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
-    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(tabId).style.display = 'block';
-    event.currentTarget.classList.add('active');
-}
+  // Improved tab switching (no global event variable)
+  function showTab(tabId, ev) {
+    document.querySelectorAll('.tab-content').forEach(function(tab){ tab.style.display = 'none'; });
+    document.querySelectorAll('.tab-button').forEach(function(btn){ btn.classList.remove('active'); btn.removeAttribute('aria-current'); });
+    var target = document.getElementById(tabId);
+    if (target) target.style.display = 'block';
+    if (ev && ev.currentTarget) {
+      ev.currentTarget.classList.add('active');
+      ev.currentTarget.setAttribute('aria-current','page');
+      // ensure focus works well for keyboard users
+      ev.currentTarget.focus();
+    }
+    // move focus to content for accessibility
+    var main = document.getElementById('main-content');
+    if (main) main.focus();
+  }
+
+  // allow keyboard navigation: left/right for tabs
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      var tabs = Array.from(document.querySelectorAll('.tab-button'));
+      var activeIndex = tabs.findIndex(t => t.classList.contains('active'));
+      if (activeIndex === -1) return;
+      var next = (e.key === 'ArrowRight') ? activeIndex + 1 : activeIndex - 1;
+      if (next < 0) next = tabs.length -1; if (next >= tabs.length) next = 0;
+      tabs[next].click();
+    }
+  });
+
+  // Small improvement: set tabindex on main content for focus
+  document.getElementById('main-content').setAttribute('tabindex','-1');
 </script>
 </body>
+</html>
