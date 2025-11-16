@@ -3,28 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>College Finder — Firebase Messages (Compat)</title>
-  <link rel="icon" href="my-logo.png">
+  <title>College Finder — Messages (Single File)</title>
+  <link rel="icon" href="my-logo.png" />
   <style>
-    :root{--brand:#0a3d62;--accent:#ffcc00;--bg:#eef3f8}
+    :root{--brand:#0a3d62;--accent:#ffcc00;--bg:#eef3f8;--card:#fff}
     *{box-sizing:border-box}
     body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#123}
-    header{background:var(--brand);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
+    header{background:var(--brand);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40}
     header h1{margin:0;font-size:20px}
     .wrap{display:flex;gap:18px;max-width:1100px;margin:18px auto;padding:0 12px}
-    .sidebar{width:230px;background:var(--brand);color:#fff;border-radius:10px;padding:12px;min-height:70vh;position:sticky;top:78px}
+    .sidebar{width:230px;background:var(--brand);color:#fff;border-radius:10px;padding:12px;min-height:70vh;position:sticky;top:88px}
+    .logo{display:flex;gap:8px;align-items:center}
     .logo img{height:44px;width:44px;border-radius:8px;object-fit:cover}
     .tab-button{display:block;padding:10px 12px;color:#fff;text-decoration:none;border-radius:6px;margin:6px 0;border-left:4px solid transparent;cursor:pointer;background:transparent;border:none;text-align:left}
+    .tab-button:hover{background:#074068}
     .tab-button.active{background:#052a4a;border-left:4px solid var(--accent)}
     main{flex:1}
-    .card{background:#fff;padding:14px;border-radius:10px;margin-bottom:16px;box-shadow:0 6px 18px rgba(6,30,60,0.06)}
+    .card{background:var(--card);padding:14px;border-radius:10px;margin-bottom:16px;box-shadow:0 6px 18px rgba(6,30,60,0.06)}
     .flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
     .flip{background:linear-gradient(135deg,#fff,#dbe9ff);border-radius:10px;height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:12px;position:relative;cursor:pointer}
     .view-btn{position:absolute;right:10px;bottom:10px;background:var(--accent);color:#111;padding:6px 10px;border-radius:6px;border:none;cursor:pointer;font-weight:700}
     /* messages */
     #messages-wrap{display:flex;gap:12px;height:70vh}
-    .chats-list{width:320px;background:#fff;border-radius:10px;padding:10px;overflow:auto}
-    .chat-window{flex:1;background:#fff;border-radius:10px;padding:10px;display:flex;flex-direction:column}
+    .chats-list{width:320px;background:var(--card);border-radius:10px;padding:10px;overflow:auto}
+    .chat-window{flex:1;background:var(--card);border-radius:10px;padding:10px;display:flex;flex-direction:column}
     .chat-header{display:flex;align-items:center;gap:12px;padding-bottom:8px;border-bottom:1px solid #eee}
     .messages{flex:1;overflow:auto;padding:12px}
     .msg{display:inline-block;max-width:80%;padding:8px 12px;margin:8px 0;border-radius:12px}
@@ -33,13 +35,22 @@
     .chat-input{display:flex;gap:8px;padding-top:8px}
     .chat-input input{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd}
     .chat-input button{padding:10px 14px;border-radius:8px;border:none;background:var(--brand);color:#fff;cursor:pointer}
-    @media(max-width:900px){.wrap{flex-direction:column}.sidebar{width:100%;display:flex;overflow-x:auto}.tab-button{flex:0 0 auto;padding:8px 12px}}
+    input[type="email"], input[type="password"], input[type="text"], input[type="date"]{width:100%;padding:8px;margin:6px 0;border-radius:6px;border:1px solid #ccc}
+    .small{font-size:13px;color:#666}
+    @media(max-width:900px){
+      .wrap{flex-direction:column;padding:0 10px}
+      .sidebar{width:100%;display:flex;overflow-x:auto;gap:8px}
+      .tab-button{flex:0 0 auto;padding:8px 12px;border-left:none;border-bottom:4px solid transparent}
+      .tab-button.active{border-bottom:4px solid var(--accent)}
+      #messages-wrap{flex-direction:column;height:60vh}
+      .chats-list{width:100%}
+    }
   </style>
 </head>
 <body>
 <header>
   <div style="display:flex;align-items:center;gap:12px">
-    <img src="my-logo.jpg" style="height:36px;width:36px;border-radius:6px;object-fit:cover" alt="logo">
+    <img src="my-logo.jpg" alt="logo" style="height:36px;width:36px;border-radius:6px;object-fit:cover">
     <h1>College Finder</h1>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:12px">
@@ -50,9 +61,12 @@
 
 <div class="wrap">
   <aside class="sidebar" id="sidebar">
-    <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
-      <img src="my-logo.jpg" alt="logo" style="height:44px;width:44px;border-radius:8px">
-      <div><strong>College Finder</strong><div style="font-size:12px;color:#dfe9f5">Tamil Nadu</div></div>
+    <div class="logo">
+      <img src="my-logo.jpg" alt="logo">
+      <div style="margin-left:8px">
+        <strong>College Finder</strong>
+        <div class="small">Tamil Nadu colleges</div>
+      </div>
     </div>
 
     <button class="tab-button active" data-tab="home">🏠 Home</button>
@@ -61,9 +75,10 @@
     <button class="tab-button" data-tab="coimbatore">Coimbatore</button>
     <button class="tab-button" data-tab="trichy">Trichy</button>
     <button class="tab-button" data-tab="madurai">Madurai</button>
+    <button class="tab-button" data-tab="salem">Salem</button>
 
     <div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px">
-      <div style="font-size:13px;color:#dfe9f5">Logged in user</div>
+      <div class="small" style="color:#dfe9f5">Logged in user</div>
       <div id="sidebar-user" style="font-weight:700;margin-top:6px">—</div>
       <button id="btn-logout" class="tab-button" style="background:transparent;margin-top:10px;color:#fff">Logout</button>
     </div>
@@ -73,7 +88,7 @@
     <!-- HOME -->
     <section id="home" class="card" data-section>
       <h2>Welcome to College Finder</h2>
-      <p style="color:#444">Click a card's View button to open that category. Login required for View details or to message admin.</p>
+      <p class="small">This site lists colleges in Tamil Nadu. Click any card's <b>View</b> — you'll be asked to login if not signed in.</p>
 
       <div class="card" id="flip-board">
         <h3 style="margin-top:0;color:darkred;text-align:center">Explore All Colleges Quickly</h3>
@@ -81,41 +96,19 @@
       </div>
     </section>
 
-    <!-- city sections -->
-    <section id="chennai" class="card" data-section style="display:none">
-      <h2 style="text-align:center;color:darkred">Chennai</h2>
-      <div id="chennai-content">Loading…</div>
-    </section>
+    <!-- Cities -->
+    <section id="chennai" class="card" data-section style="display:none"><h2 style="text-align:center;color:darkred">Chennai</h2><div id="chennai-content">Loading…</div></section>
+    <section id="pondy" class="card" data-section style="display:none"><h2 style="text-align:center;color:darkred">Pondicherry</h2><div id="pondy-content">Loading…</div></section>
+    <section id="coimbatore" class="card" data-section style="display:none"><h2 style="text-align:center;color:darkred">Coimbatore</h2><div id="coimbatore-content">Loading…</div></section>
+    <section id="trichy" class="card" data-section style="display:none"><h2 style="text-align:center;color:darkred">Trichy</h2><div id="trichy-content">Loading…</div></section>
+    <section id="madurai" class="card" data-section style="display:none"><h2 style="text-align:center;color:darkred">Madurai</h2><div id="madurai-content">Loading…</div></section>
+    <section id="salem" class="card" data-section style="display:none"><h2 style="text-align:center;color:darkred">Salem</h2><div id="salem-content">Loading…</div></section>
 
-    <section id="pondy" class="card" data-section style="display:none">
-      <h2 style="text-align:center;color:darkred">Pondicherry</h2>
-      <div id="pondy-content">Loading…</div>
-    </section>
-
-    <section id="coimbatore" class="card" data-section style="display:none">
-      <h2 style="text-align:center;color:darkred">Coimbatore</h2>
-      <div id="coimbatore-content">Loading…</div>
-    </section>
-
-    <section id="trichy" class="card" data-section style="display:none">
-      <h2 style="text-align:center;color:darkred">Trichy</h2>
-      <div id="trichy-content">Loading…</div>
-    </section>
-
-    <section id="madurai" class="card" data-section style="display:none">
-      <h2 style="text-align:center;color:darkred">Madurai</h2>
-      <div id="madurai-content">Loading…</div>
-    </section>
-
-    <!-- Messages -->
+    <!-- Messages (per-user) -->
     <section id="messages" class="card" data-section style="display:none">
       <h2 style="text-align:center;color:darkred">Messages</h2>
       <div id="messages-wrap">
-        <div class="chats-list" id="user-chat-list">
-          <div style="font-weight:700">Your Chat</div>
-          <div class="small" style="margin-top:8px">Messages are synced with Firebase.</div>
-        </div>
-
+        <div class="chats-list" id="user-chat-list"><div style="font-weight:700">Your Chat</div><div class="small" style="margin-top:6px">Messages are synced with Firebase.</div></div>
         <div class="chat-window">
           <div class="chat-header"><strong id="chat-with">Admin</strong></div>
           <div class="messages" id="chat-messages"></div>
@@ -150,8 +143,8 @@
 <div id="authModal" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:60">
   <div style="background:#fff;padding:18px;border-radius:10px;width:320px;max-width:95%">
     <h3 style="margin:0 0 8px 0">Login / Signup</h3>
-    <input id="authEmail" type="email" placeholder="Email" /><br>
-    <input id="authPass" type="password" placeholder="Password" /><br>
+    <input id="authEmail" type="email" placeholder="Email" />
+    <input id="authPass" type="password" placeholder="Password" />
     <div style="display:flex;gap:8px;margin-top:8px">
       <button id="authLogin" style="flex:1;padding:10px;background:var(--brand);color:#fff;border:none;border-radius:6px">Login</button>
       <button id="authSignup" style="flex:1;padding:10px;background:#ffcc00;border:none;border-radius:6px">Signup</button>
@@ -166,11 +159,14 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"></script>
 
 <script>
+/* -------------------------
+   Single-file app.js section
+   ------------------------- */
 document.addEventListener('DOMContentLoaded', function(){
 
   console.log('DOM ready — initializing app');
 
-  // ---------- Firebase config (your config) ----------
+  // ----- Firebase config (your provided config) -----
   const firebaseConfig = {
     apiKey: "AIzaSyDjW_3cYR8apPFMmZqLqZh_9i2bN-1IEmY",
     authDomain: "college-finder-279aa.firebaseapp.com",
@@ -186,6 +182,9 @@ document.addEventListener('DOMContentLoaded', function(){
   const auth = firebase.auth();
   const db = firebase.database();
 
+  // Admin email (exact match)
+  const ADMIN_EMAIL = "mithun@admin.com";
+
   // UI refs
   const welcomeTxt = document.getElementById('welcomeTxt');
   const btnAuth = document.getElementById('btn-auth');
@@ -198,9 +197,10 @@ document.addEventListener('DOMContentLoaded', function(){
   const sidebarUser = document.getElementById('sidebar-user');
   const btnLogout = document.getElementById('btn-logout');
 
-  const chatInput = document.getElementById('chat-input');
-  const chatSend = document.getElementById('chat-send');
   const chatMessages = document.getElementById('chat-messages');
+  const userChatList = document.getElementById('user-chat-list');
+  const chatSend = document.getElementById('chat-send');
+  const chatInput = document.getElementById('chat-input');
 
   const adminUserList = document.getElementById('admin-user-list');
   const adminChatMessages = document.getElementById('admin-chat-messages');
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function(){
   let currentUserUid = null;
   let currentAdminChatUid = null;
 
-  // Tab switching (delegation)
+  /* ---------------- TAB SWITCHING (delegated) ---------------- */
   document.getElementById('sidebar').addEventListener('click', function(e){
     const btn = e.target.closest('.tab-button');
     if(!btn) return;
@@ -227,19 +227,19 @@ document.addEventListener('DOMContentLoaded', function(){
     btn.classList.add('active');
   });
 
-  // open auth modal
-  btnAuth.addEventListener('click', ()=> authModal.style.display='flex');
-  authClose.addEventListener('click', ()=> authModal.style.display='none');
+  /* --------------- AUTH MODAL --------------- */
+  btnAuth.addEventListener('click', ()=> authModal.style.display='flex' );
+  authClose.addEventListener('click', ()=> authModal.style.display='none' );
 
-  // signup & login
   authSignup.addEventListener('click', async function(){
     const email = authEmail.value.trim(), pass = authPass.value.trim();
     if(!email || !pass) return alert('Provide email & password');
     try{
       const cred = await auth.createUserWithEmailAndPassword(email, pass);
-      // create users record for admin list
+      // write user record for admin to see
       await db.ref('users/' + cred.user.uid).set({ email: email, createdAt: Date.now() });
       authModal.style.display='none';
+      alert('Account created and signed in.');
     }catch(err){ alert(err.message); }
   });
 
@@ -256,32 +256,30 @@ document.addEventListener('DOMContentLoaded', function(){
     if(confirm('Logout?')) await auth.signOut();
   });
 
-  // monitor auth state
+  /* --------------- AUTH STATE --------------- */
   auth.onAuthStateChanged(function(user){
     currentUser = user;
     if(user){
       welcomeTxt.textContent = user.email;
       sidebarUser.textContent = user.email;
       currentUserUid = user.uid;
-
-      // ensure Messages tab
       injectMessagesTab();
-
-      // if admin email
-      if(user.email && user.email.toLowerCase() === 'mithun@admin.com'){
+      if(user.email && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()){
         injectAdminTab();
-        // show admin tab
+        // show admin tab by default
         document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
         document.getElementById('admin').style.display='block';
       } else {
-        // show messages for normal user
         document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
         document.getElementById('messages').style.display='block';
       }
-
-      // prepare user chat
+      // ensure a user record exists (so admin sees it)
+      db.ref('users/' + user.uid).once('value').then(snap=>{
+        if(!snap.exists()) {
+          db.ref('users/' + user.uid).set({ email: user.email, createdAt: Date.now() });
+        }
+      });
       loadUserChat();
-
     } else {
       welcomeTxt.textContent = 'Not signed in';
       sidebarUser.textContent = '—';
@@ -295,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 
-  // inject Messages tab button (once)
+  /* --------------- INJECT TABS --------------- */
   function injectMessagesTab(){
     if(document.querySelector('[data-tab="messages"]')) return;
     const btn = document.createElement('button');
@@ -308,11 +306,8 @@ document.addEventListener('DOMContentLoaded', function(){
       document.querySelectorAll('.tab-button').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
     });
-    // append before the bottom block
     document.getElementById('sidebar').appendChild(btn);
   }
-
-  // inject Admin tab
   function injectAdminTab(){
     if(document.querySelector('[data-tab="admin"]')) return;
     const btn = document.createElement('button');
@@ -329,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('sidebar').appendChild(btn);
   }
 
-  // Render flipboards
+  /* ---------------- FLIPBOARDS ---------------- */
   const FLIPS = [
     { city:'Chennai', title:'Engineering', link:'engineering_colleges_in_chennai.html' },
     { city:'Chennai', title:'Medical', link:'medical_college_in_chennai.html' },
@@ -345,7 +340,8 @@ document.addEventListener('DOMContentLoaded', function(){
     { city:'Trichy', title:'Arts & Science', link:'arts-and-science-trichy.html' },
     { city:'Trichy', title:'Aviation', link:'aviation-trichy.html' },
     { city:'Madurai', title:'Aviation', link:'aviaaon-maduur.html' },
-    { city:'Madurai', title:'Engineering', link:'engeerg-ma.html' }
+    { city:'Madurai', title:'Engineering', link:'engeerg-ma.html' },
+    { city:'Salem', title:'Engineering', link:'salem-engineering.html' }
   ];
   function renderFlipboards(){
     const grid = document.getElementById('flip-grid');
@@ -361,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function(){
       });
       d.appendChild(btn);
       d.addEventListener('click', ()=> {
-        const map = { Chennai:'chennai', Pondicherry:'pondy', Coimbatore:'coimbatore', Trichy:'trichy', Madurai:'madurai' };
+        const map = { Chennai:'chennai', Pondicherry:'pondy', Coimbatore:'coimbatore', Trichy:'trichy', Madurai:'madurai', Salem:'salem' };
         const id = map[item.city] || 'home';
         document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
         const el = document.getElementById(id);
@@ -372,47 +368,27 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   renderFlipboards();
 
-  // SAMPLE city lists
+  /* ---------------- CITY SAMPLE DATA ---------------- */
   const SAMPLE = {
-    "Chennai": {
-      "Engineering":["IIT Madras","SSN College of Engineering","Anna University - CEG"],
-      "Medical":["Madras Medical College","Stanley Medical College"],
-      "Arts & Science":["Loyola College","Madras Christian College"]
-    },
-    "Coimbatore": {
-      "Engineering":["PSG College of Technology","Coimbatore Institute of Technology"],
-      "Medical":["Coimbatore Medical College"],
-      "Arts & Science":["PSG College of Arts & Science"]
-    },
-    "Pondicherry": {
-      "Engineering":["JIPMER (engineering list not full)"],
-      "Medical":["JIPMER"],
-      "Arts & Science":["Pondy Arts College"]
-    },
-    "Trichy": {
-      "Engineering":["NIT Trichy","Saranathan College of Engineering"],
-      "Medical":["KAPV Medical College"],
-      "Arts & Science":["Bishop Heber College"]
-    },
-    "Madurai": {
-      "Engineering":["Thiagarajar College of Engineering"],
-      "Medical":["Madurai Medical College"],
-      "Arts & Science":["The American College"]
-    }
+    "Chennai": { "Engineering":["IIT Madras","SSN College of Engineering","Anna University - CEG"], "Medical":["Madras Medical College","Stanley Medical College"], "Arts & Science":["Loyola College","Madras Christian College"] },
+    "Coimbatore": { "Engineering":["PSG College of Technology","Coimbatore Institute of Technology"], "Medical":["Coimbatore Medical College"], "Arts & Science":["PSG College of Arts & Science"] },
+    "Pondicherry": { "Engineering":["(sample)"], "Medical":["JIPMER"], "Arts & Science":["Pondy Arts College"] },
+    "Trichy": { "Engineering":["NIT Trichy","Saranathan College"], "Medical":["KAPV Medical College"], "Arts & Science":["Bishop Heber College"] },
+    "Madurai": { "Engineering":["Thiagarajar College of Engineering"], "Medical":["Madurai Medical College"], "Arts & Science":["The American College"] },
+    "Salem": { "Engineering":["Sona College of Technology"], "Medical":["Vinayaka Missions Medical College"], "Arts & Science":["Sona Arts and Science College"] }
   };
-
   function renderCityLists(){
-    ['chennai','coimbatore','pondy','trichy','madurai'].forEach(id=>{
-      const key = id === 'pondy' ? 'Pondicherry' : id.charAt(0).toUpperCase()+id.slice(1);
-      const cont = document.getElementById(id+'-content');
+    ['chennai','coimbatore','pondy','trichy','madurai','salem'].forEach(id=>{
+      const key = id === 'pondy' ? 'Pondicherry' : id.charAt(0).toUpperCase() + id.slice(1);
+      const cont = document.getElementById(id + '-content');
       cont.innerHTML = '';
       const obj = SAMPLE[key] || {};
       Object.keys(obj).forEach(cat=>{
         const card = document.createElement('div'); card.className='card';
-        card.innerHTML = `<strong>${cat}</strong><div style="color:#666">${obj[cat].length} colleges</div>`;
+        card.innerHTML = `<strong>${cat}</strong><div class="small">${obj[cat].length} colleges</div>`;
         obj[cat].forEach(c=>{
           const r = document.createElement('div'); r.style.padding='8px'; r.style.borderBottom='1px solid #f0f0f0';
-          r.innerHTML = `<div style="font-weight:700">${c}</div><div style="color:#666" class="small">— sample info</div>`;
+          r.innerHTML = `<div style="font-weight:700">${c}</div><div class="small">— sample info</div>`;
           const v = document.createElement('button'); v.className='view-btn'; v.textContent='View';
           v.onclick = (ev)=> { ev.stopPropagation(); if(!currentUserUid){ authModal.style.display='flex'; return; } alert('Open details for ' + c); };
           r.appendChild(v);
@@ -424,15 +400,14 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   renderCityLists();
 
-  // ---------- User chat (per-user under /chats/{uid}) ----------
+  /* ---------------- USER CHAT (per-user) ---------------- */
   function loadUserChat(){
     if(!currentUserUid) return;
-    userChatList.innerHTML = '<div style="font-weight:700">Your Chat</div><div style="color:#666;font-size:12px;margin-top:6px">Messages with admin</div>';
-    // clear messages area
+    userChatList.innerHTML = '<div style="font-weight:700">Your Chat</div><div class="small" style="margin-top:6px">Messages with admin</div>';
     chatMessages.innerHTML = '';
-    const chatRef = db.ref('chats/' + currentUserUid);
-    chatRef.off(); // remove previous listeners
-    chatRef.on('child_added', function(snap){
+    const userRef = db.ref('chats/' + currentUserUid);
+    userRef.off();
+    userRef.on('child_added', function(snap){
       const m = snap.val();
       const el = document.createElement('div');
       el.className = 'msg ' + (m.from === 'admin' ? 'admin' : 'user');
@@ -440,17 +415,16 @@ document.addEventListener('DOMContentLoaded', function(){
       chatMessages.appendChild(el);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     });
-
-    // send button
-    document.getElementById('chat-send').onclick = function(){
-      const txt = document.getElementById('chat-input').value.trim();
+    // send
+    chatSend.onclick = function(){
+      const txt = chatInput.value.trim();
       if(!txt) return;
       db.ref('chats/' + currentUserUid).push({ from:'user', text: txt, time: Date.now() });
-      document.getElementById('chat-input').value = '';
+      chatInput.value = '';
     };
   }
 
-  // ---------- Admin UI ----------
+  /* ---------------- ADMIN UI ---------------- */
   function loadAdminUsers(){
     adminUserList.innerHTML = '<div style="font-weight:700">Users</div>';
     const usersRef = db.ref('users');
@@ -462,13 +436,12 @@ document.addEventListener('DOMContentLoaded', function(){
         const u = usersObj[uid];
         const row = document.createElement('div');
         row.style.padding='8px'; row.style.borderBottom='1px solid #eee'; row.style.cursor='pointer';
-        row.innerHTML = `<div style="font-weight:700">${escapeHtml(u.email||uid)}</div><div style="color:#666;font-size:12px">uid: ${uid}</div>`;
+        row.innerHTML = `<div style="font-weight:700">${escapeHtml(u.email||uid)}</div><div class="small">uid: ${uid}</div>`;
         row.onclick = ()=> openAdminChat(uid, u.email);
         adminUserList.appendChild(row);
       });
     });
   }
-
   function openAdminChat(uid, email){
     currentAdminChatUid = uid;
     adminChatHeader.innerHTML = `<strong>${escapeHtml(email||uid)}</strong>`;
@@ -483,22 +456,21 @@ document.addEventListener('DOMContentLoaded', function(){
       adminChatMessages.appendChild(el);
       adminChatMessages.scrollTop = adminChatMessages.scrollHeight;
     });
-
-    // admin send
     adminChatSend.onclick = function(){
       const t = adminChatInput.value.trim();
-      if(!t) return;
-      db.ref('chats/' + uid).push({ from:'admin', text: t, time: Date.now() });
+      if(!t || !currentAdminChatUid) return;
+      db.ref('chats/' + currentAdminChatUid).push({ from:'admin', text: t, time: Date.now() });
       adminChatInput.value = '';
     };
   }
 
-  // small helper
+  // helper
   function escapeHtml(s){ if(!s) return ''; return String(s).replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
 
-  // end DOMContentLoaded
+  // Done initialization
+  console.log('App initialized');
+
 }); // DOMContentLoaded
 </script>
-
 </body>
 </html>
