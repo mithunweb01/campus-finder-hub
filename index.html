@@ -3,30 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>College Finder — Firebase Messages</title>
-  <link rel="icon" type="image/png" href="my-logo.png">
+  <title>College Finder — Firebase Messages (Compat)</title>
+  <link rel="icon" href="my-logo.png">
   <style>
-    :root{--brand:#0a3d62;--accent:#ffcc00;--bg:#eef3f8;--card:#fff}
+    :root{--brand:#0a3d62;--accent:#ffcc00;--bg:#eef3f8}
     *{box-sizing:border-box}
     body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#123}
-    header{background:var(--brand);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+    header{background:var(--brand);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
     header h1{margin:0;font-size:20px}
     .wrap{display:flex;gap:18px;max-width:1100px;margin:18px auto;padding:0 12px}
     .sidebar{width:230px;background:var(--brand);color:#fff;border-radius:10px;padding:12px;min-height:70vh;position:sticky;top:78px}
-    .logo{display:flex;gap:8px;align-items:center}
     .logo img{height:44px;width:44px;border-radius:8px;object-fit:cover}
     .tab-button{display:block;padding:10px 12px;color:#fff;text-decoration:none;border-radius:6px;margin:6px 0;border-left:4px solid transparent;cursor:pointer;background:transparent;border:none;text-align:left}
-    .tab-button:hover{background:#074068}
     .tab-button.active{background:#052a4a;border-left:4px solid var(--accent)}
     main{flex:1}
-    .card{background:var(--card);padding:14px;border-radius:10px;margin-bottom:16px;box-shadow:0 6px 18px rgba(6,30,60,0.06)}
+    .card{background:#fff;padding:14px;border-radius:10px;margin-bottom:16px;box-shadow:0 6px 18px rgba(6,30,60,0.06)}
     .flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
     .flip{background:linear-gradient(135deg,#fff,#dbe9ff);border-radius:10px;height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:12px;position:relative;cursor:pointer}
     .view-btn{position:absolute;right:10px;bottom:10px;background:var(--accent);color:#111;padding:6px 10px;border-radius:6px;border:none;cursor:pointer;font-weight:700}
     /* messages */
     #messages-wrap{display:flex;gap:12px;height:70vh}
-    .chats-list{width:320px;background:var(--card);border-radius:10px;padding:10px;overflow:auto}
-    .chat-window{flex:1;background:var(--card);border-radius:10px;padding:10px;display:flex;flex-direction:column}
+    .chats-list{width:320px;background:#fff;border-radius:10px;padding:10px;overflow:auto}
+    .chat-window{flex:1;background:#fff;border-radius:10px;padding:10px;display:flex;flex-direction:column}
     .chat-header{display:flex;align-items:center;gap:12px;padding-bottom:8px;border-bottom:1px solid #eee}
     .messages{flex:1;overflow:auto;padding:12px}
     .msg{display:inline-block;max-width:80%;padding:8px 12px;margin:8px 0;border-radius:12px}
@@ -35,25 +33,16 @@
     .chat-input{display:flex;gap:8px;padding-top:8px}
     .chat-input input{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd}
     .chat-input button{padding:10px 14px;border-radius:8px;border:none;background:var(--brand);color:#fff;cursor:pointer}
-    /* responsive */
-    @media(max-width:900px){
-      .wrap{flex-direction:column;padding:0 10px}
-      .sidebar{width:100%;display:flex;overflow-x:auto;gap:8px}
-      .tab-button{flex:0 0 auto;padding:8px 12px;border-left:none;border-bottom:3px solid transparent}
-      .tab-button.active{border-bottom:4px solid var(--accent)}
-      #messages-wrap{flex-direction:column;height:60vh}
-      .chats-list{width:100%}
-    }
+    @media(max-width:900px){.wrap{flex-direction:column}.sidebar{width:100%;display:flex;overflow-x:auto}.tab-button{flex:0 0 auto;padding:8px 12px}}
   </style>
 </head>
 <body>
-
 <header>
   <div style="display:flex;align-items:center;gap:12px">
-    <img src="my-logo.jpg" alt="logo" style="height:36px;width:36px;border-radius:6px;object-fit:cover">
+    <img src="my-logo.jpg" style="height:36px;width:36px;border-radius:6px;object-fit:cover" alt="logo">
     <h1>College Finder</h1>
   </div>
-  <div id="auth-area" style="display:flex;align-items:center;gap:10px">
+  <div id="auth-area" style="display:flex;align-items:center;gap:12px">
     <span id="welcomeTxt" style="color:#fff;font-size:14px">Not signed in</span>
     <button id="btn-auth" style="background:transparent;border:1px solid rgba(255,255,255,0.18);color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer">Login / Signup</button>
   </div>
@@ -61,231 +50,455 @@
 
 <div class="wrap">
   <aside class="sidebar" id="sidebar">
-    <div class="logo"><img src="my-logo.jpg"><div style="font-weight:700">College Finder</div></div>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
+      <img src="my-logo.jpg" alt="logo" style="height:44px;width:44px;border-radius:8px">
+      <div><strong>College Finder</strong><div style="font-size:12px;color:#dfe9f5">Tamil Nadu</div></div>
+    </div>
 
-    <button class="tab-button active" data-tab="home" onclick="switchTab('home',this)">🏠 Home</button>
-    <button class="tab-button" data-tab="chennai" onclick="switchTab('chennai',this)">Chennai</button>
-    <button class="tab-button" data-tab="pondy" onclick="switchTab('pondy',this)">Pondicherry</button>
-    <button class="tab-button" data-tab="coimbatore" onclick="switchTab('coimbatore',this)">Coimbatore</button>
-    <button class="tab-button" data-tab="trichy" onclick="switchTab('trichy',this)">Trichy</button>
-    <button class="tab-button" data-tab="madurai" onclick="switchTab('madurai',this)">Madurai</button>
+    <button class="tab-button active" data-tab="home">🏠 Home</button>
+    <button class="tab-button" data-tab="chennai">Chennai</button>
+    <button class="tab-button" data-tab="pondy">Pondicherry</button>
+    <button class="tab-button" data-tab="coimbatore">Coimbatore</button>
+    <button class="tab-button" data-tab="trichy">Trichy</button>
+    <button class="tab-button" data-tab="madurai">Madurai</button>
 
     <div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px">
       <div style="font-size:13px;color:#dfe9f5">Logged in user</div>
       <div id="sidebar-user" style="font-weight:700;margin-top:6px">—</div>
-          </div>
+      <button id="btn-logout" class="tab-button" style="background:transparent;margin-top:10px;color:#fff">Logout</button>
+    </div>
   </aside>
 
-  <main id="content">
-
-    <!-- HOME TAB -->
-    <div id="home" class="card">
+  <main style="flex:1">
+    <!-- HOME -->
+    <section id="home" class="card" data-section>
       <h2>Welcome to College Finder</h2>
-      <p>Select a city from the sidebar to explore colleges.</p>
+      <p style="color:#444">Click a card's View button to open that category. Login required for View details or to message admin.</p>
 
-      <div class="flip-grid">
-        <div class="flip">
-          <div style="font-size:22px;font-weight:700">300+</div>
-          <div>Colleges Listed</div>
-        </div>
-        <div class="flip">
-          <div style="font-size:22px;font-weight:700">Verified</div>
-          <div>Trusted Information</div>
-        </div>
+      <div class="card" id="flip-board">
+        <h3 style="margin-top:0;color:darkred;text-align:center">Explore All Colleges Quickly</h3>
+        <div class="flip-grid" id="flip-grid"></div>
       </div>
-    </div>
+    </section>
 
-    <!-- CITY PAGES (dummy content) -->
-    <div id="chennai" class="card" style="display:none">
-      <h2>Chennai Colleges</h2>
-      <p>List coming soon…</p>
-    </div>
+    <!-- city sections -->
+    <section id="chennai" class="card" data-section style="display:none">
+      <h2 style="text-align:center;color:darkred">Chennai</h2>
+      <div id="chennai-content">Loading…</div>
+    </section>
 
-    <div id="pondy" class="card" style="display:none">
-      <h2>Pondicherry Colleges</h2>
-      <p>List coming soon…</p>
-    </div>
+    <section id="pondy" class="card" data-section style="display:none">
+      <h2 style="text-align:center;color:darkred">Pondicherry</h2>
+      <div id="pondy-content">Loading…</div>
+    </section>
 
-    <div id="coimbatore" class="card" style="display:none">
-      <h2>Coimbatore Colleges</h2>
-      <p>List coming soon…</p>
-    </div>
+    <section id="coimbatore" class="card" data-section style="display:none">
+      <h2 style="text-align:center;color:darkred">Coimbatore</h2>
+      <div id="coimbatore-content">Loading…</div>
+    </section>
 
-    <div id="trichy" class="card" style="display:none">
-      <h2>Trichy Colleges</h2>
-      <p>List coming soon…</p>
-    </div>
+    <section id="trichy" class="card" data-section style="display:none">
+      <h2 style="text-align:center;color:darkred">Trichy</h2>
+      <div id="trichy-content">Loading…</div>
+    </section>
 
-    <div id="madurai" class="card" style="display:none">
-      <h2>Madurai Colleges</h2>
-      <p>List coming soon…</p>
-    </div>
+    <section id="madurai" class="card" data-section style="display:none">
+      <h2 style="text-align:center;color:darkred">Madurai</h2>
+      <div id="madurai-content">Loading…</div>
+    </section>
 
-    <!-- MESSAGES TAB -->
-    <div id="messages" class="card" style="display:none">
-      <h2>Messages</h2>
-
+    <!-- Messages -->
+    <section id="messages" class="card" data-section style="display:none">
+      <h2 style="text-align:center;color:darkred">Messages</h2>
       <div id="messages-wrap">
-        <div class="chats-list" id="chatList"></div>
+        <div class="chats-list" id="user-chat-list">
+          <div style="font-weight:700">Your Chat</div>
+          <div class="small" style="margin-top:8px">Messages are synced with Firebase.</div>
+        </div>
 
         <div class="chat-window">
-          <div class="chat-header" id="chatHeader">
-            <strong>Select a chat</strong>
-          </div>
-
-          <div class="messages" id="chatMessages"></div>
-
+          <div class="chat-header"><strong id="chat-with">Admin</strong></div>
+          <div class="messages" id="chat-messages"></div>
           <div class="chat-input">
-            <input id="msgInput" type="text" placeholder="Type a message…">
-            <button onclick="sendMessage()">Send</button>
+            <input id="chat-input" placeholder="Type your message..." />
+            <button id="chat-send">Send</button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Admin -->
+    <section id="admin" class="card" data-section style="display:none">
+      <h2 style="text-align:center;color:darkred">Admin Dashboard</h2>
+      <div style="display:flex;gap:12px">
+        <div class="chats-list" id="admin-user-list"><div style="font-weight:700">Users</div></div>
+        <div class="chat-window">
+          <div class="chat-header" id="admin-chat-header"><strong>Select a user</strong></div>
+          <div class="messages" id="admin-chat-messages"></div>
+          <div class="chat-input">
+            <input id="admin-chat-input" placeholder="Reply..." />
+            <button id="admin-chat-send">Send</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 </div>
 
-<!-- AUTH POPUP -->
-<div id="authPopup" style="display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.55);justify-content:center;align-items:center">
-  <div style="background:#fff;padding:20px;border-radius:12px;width:300px">
-    <h3 style="margin-top:0">Login / Signup</h3>
-
-    <input id="authEmail" type="email" placeholder="Email" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #ccc">
-    <input id="authPass" type="password" placeholder="Password" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #ccc">
-
-    <button onclick="login()" style="width:100%;padding:10px;background:#0a3d62;color:#fff;border:none;border-radius:8px;margin-top:6px">Login</button>
-    <button onclick="signup()" style="width:100%;padding:10px;background:#ffcc00;border:none;border-radius:8px;margin-top:6px">Signup</button>
-    <button onclick="closeAuth()" style="width:100%;padding:10px;background:#ddd;border:none;border-radius:8px;margin-top:6px">Close</button>
+<!-- Auth modal -->
+<div id="authModal" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:60">
+  <div style="background:#fff;padding:18px;border-radius:10px;width:320px;max-width:95%">
+    <h3 style="margin:0 0 8px 0">Login / Signup</h3>
+    <input id="authEmail" type="email" placeholder="Email" /><br>
+    <input id="authPass" type="password" placeholder="Password" /><br>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button id="authLogin" style="flex:1;padding:10px;background:var(--brand);color:#fff;border:none;border-radius:6px">Login</button>
+      <button id="authSignup" style="flex:1;padding:10px;background:#ffcc00;border:none;border-radius:6px">Signup</button>
+    </div>
+    <div style="margin-top:8px;text-align:right"><button id="authClose" style="background:transparent;border:none;color:#666">Close</button></div>
   </div>
 </div>
 
-<!-- Firebase -->
+<!-- Firebase compat scripts (non-module) -->
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"></script>
 
 <script>
-/* ---------------- FIREBASE CONFIG ----------------- */
-const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  databaseURL: "YOUR_DB",
-  projectId: "YOUR_ID",
-  storageBucket: "YOUR_BUCKET",
-  messagingSenderId: "YOUR_SENDER",
-  appId: "YOUR_APPID"
-};
+document.addEventListener('DOMContentLoaded', function(){
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.database();
+  console.log('DOM ready — initializing app');
 
-/* ---------------- UI TABS ----------------- */
-function switchTab(tab, btn) {
-  document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  // ---------- Firebase config (your config) ----------
+  const firebaseConfig = {
+    apiKey: "AIzaSyDjW_3cYR8apPFMmZqLqZh_9i2bN-1IEmY",
+    authDomain: "college-finder-279aa.firebaseapp.com",
+    databaseURL: "https://college-finder-279aa-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "college-finder-279aa",
+    storageBucket: "college-finder-279aa.firebasestorage.app",
+    messagingSenderId: "94401695690",
+    appId: "1:94401695690:web:cc08b09173d329de944933",
+    measurementId: "G-R8D5FF0HEH"
+  };
 
-  document.querySelectorAll('main .card').forEach(c => c.style.display = 'none');
-  document.getElementById(tab).style.display = 'block';
-}
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
 
-/* ---------------- AUTH POPUP ----------------- */
-function openAuth(){ authPopup.style.display="flex"; }
-function closeAuth(){ authPopup.style.display="none"; }
+  // UI refs
+  const welcomeTxt = document.getElementById('welcomeTxt');
+  const btnAuth = document.getElementById('btn-auth');
+  const authModal = document.getElementById('authModal');
+  const authEmail = document.getElementById('authEmail');
+  const authPass = document.getElementById('authPass');
+  const authLogin = document.getElementById('authLogin');
+  const authSignup = document.getElementById('authSignup');
+  const authClose = document.getElementById('authClose');
+  const sidebarUser = document.getElementById('sidebar-user');
+  const btnLogout = document.getElementById('btn-logout');
 
-btn-auth.onclick = openAuth;
+  const chatInput = document.getElementById('chat-input');
+  const chatSend = document.getElementById('chat-send');
+  const chatMessages = document.getElementById('chat-messages');
 
-function signup(){
-  auth.createUserWithEmailAndPassword(authEmail.value, authPass.value)
-    .then(()=>closeAuth())
-    .catch(e=>alert(e.message));
-}
+  const adminUserList = document.getElementById('admin-user-list');
+  const adminChatMessages = document.getElementById('admin-chat-messages');
+  const adminChatHeader = document.getElementById('admin-chat-header');
+  const adminChatInput = document.getElementById('admin-chat-input');
+  const adminChatSend = document.getElementById('admin-chat-send');
 
-function login(){
-  auth.signInWithEmailAndPassword(authEmail.value, authPass.value)
-    .then(()=>closeAuth())
-    .catch(e=>alert(e.message));
-}
+  let currentUser = null;
+  let currentUserUid = null;
+  let currentAdminChatUid = null;
 
-/* ---------------- AUTH STATE ----------------- */
-auth.onAuthStateChanged(user=>{
-  if(user){
-    welcomeTxt.innerText = "Signed in: " + user.email;
-    sidebar-user.innerText = user.email;
+  // Tab switching (delegation)
+  document.getElementById('sidebar').addEventListener('click', function(e){
+    const btn = e.target.closest('.tab-button');
+    if(!btn) return;
+    const tab = btn.dataset.tab;
+    if(!tab) return;
+    // hide all
+    document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
+    const target = document.getElementById(tab);
+    if(target) target.style.display='block';
+    // active styling
+    document.querySelectorAll('.tab-button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
 
-    if(user.email === "mithun@admin.com"){
-      document.querySelector('.sidebar').innerHTML += `
-        <button class="tab-button" data-tab="messages" onclick="switchTab('messages',this)">💬 Messages</button>
-      `;
+  // open auth modal
+  btnAuth.addEventListener('click', ()=> authModal.style.display='flex');
+  authClose.addEventListener('click', ()=> authModal.style.display='none');
+
+  // signup & login
+  authSignup.addEventListener('click', async function(){
+    const email = authEmail.value.trim(), pass = authPass.value.trim();
+    if(!email || !pass) return alert('Provide email & password');
+    try{
+      const cred = await auth.createUserWithEmailAndPassword(email, pass);
+      // create users record for admin list
+      await db.ref('users/' + cred.user.uid).set({ email: email, createdAt: Date.now() });
+      authModal.style.display='none';
+    }catch(err){ alert(err.message); }
+  });
+
+  authLogin.addEventListener('click', async function(){
+    const email = authEmail.value.trim(), pass = authPass.value.trim();
+    if(!email || !pass) return alert('Provide email & password');
+    try{
+      await auth.signInWithEmailAndPassword(email, pass);
+      authModal.style.display='none';
+    }catch(err){ alert(err.message); }
+  });
+
+  btnLogout.addEventListener('click', async function(){
+    if(confirm('Logout?')) await auth.signOut();
+  });
+
+  // monitor auth state
+  auth.onAuthStateChanged(function(user){
+    currentUser = user;
+    if(user){
+      welcomeTxt.textContent = user.email;
+      sidebarUser.textContent = user.email;
+      currentUserUid = user.uid;
+
+      // ensure Messages tab
+      injectMessagesTab();
+
+      // if admin email
+      if(user.email && user.email.toLowerCase() === 'mithun@admin.com'){
+        injectAdminTab();
+        // show admin tab
+        document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
+        document.getElementById('admin').style.display='block';
+      } else {
+        // show messages for normal user
+        document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
+        document.getElementById('messages').style.display='block';
+      }
+
+      // prepare user chat
+      loadUserChat();
+
+    } else {
+      welcomeTxt.textContent = 'Not signed in';
+      sidebarUser.textContent = '—';
+      currentUserUid = null;
+      // remove injected tabs
+      const mbtn = document.querySelector('[data-tab="messages"]'); if(mbtn) mbtn.remove();
+      const abtn = document.querySelector('[data-tab="admin"]'); if(abtn) abtn.remove();
+      // show home
+      document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
+      document.getElementById('home').style.display='block';
     }
+  });
 
-    loadChatList();
-  } else {
-    welcomeTxt.innerText = "Not signed in";
-    sidebar-user.innerText = "—";
+  // inject Messages tab button (once)
+  function injectMessagesTab(){
+    if(document.querySelector('[data-tab="messages"]')) return;
+    const btn = document.createElement('button');
+    btn.className = 'tab-button';
+    btn.dataset.tab = 'messages';
+    btn.textContent = '💬 Messages';
+    btn.addEventListener('click', ()=> {
+      document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
+      document.getElementById('messages').style.display='block';
+      document.querySelectorAll('.tab-button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+    // append before the bottom block
+    document.getElementById('sidebar').appendChild(btn);
   }
-});
 
-/* ---------------- MESSAGES ----------------- */
-let currentChat = null;
-
-function loadChatList(){
-  db.ref("messages").on("value", snap=>{
-    let chats = snap.val() || {};
-    chatList.innerHTML = "";
-
-    Object.keys(chats).forEach(uid=>{
-      chatList.innerHTML += `
-        <div style="padding:10px;border-bottom:1px solid #eee;cursor:pointer"
-          onclick="openChat('${uid}')">
-          ${uid}
-        </div>
-      `;
+  // inject Admin tab
+  function injectAdminTab(){
+    if(document.querySelector('[data-tab="admin"]')) return;
+    const btn = document.createElement('button');
+    btn.className = 'tab-button';
+    btn.dataset.tab = 'admin';
+    btn.textContent = '🛠 Admin';
+    btn.addEventListener('click', ()=> {
+      document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
+      document.getElementById('admin').style.display='block';
+      document.querySelectorAll('.tab-button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      loadAdminUsers();
     });
-  });
-}
+    document.getElementById('sidebar').appendChild(btn);
+  }
 
-function openChat(uid){
-  currentChat = uid;
-  chatHeader.innerHTML = `<strong>${uid}</strong>`;
-  loadMessages(uid);
-}
+  // Render flipboards
+  const FLIPS = [
+    { city:'Chennai', title:'Engineering', link:'engineering_colleges_in_chennai.html' },
+    { city:'Chennai', title:'Medical', link:'medical_college_in_chennai.html' },
+    { city:'Chennai', title:'Arts & Science', link:'arts-science_college_chennai.html' },
+    { city:'Pondicherry', title:'Engineering', link:'engineering_pondy.html' },
+    { city:'Pondicherry', title:'Medical', link:'medical_pondyy.html' },
+    { city:'Pondicherry', title:'Arts & Science', link:'arts_pondy.html' },
+    { city:'Coimbatore', title:'Engineering', link:'engineering_coimbatore.html' },
+    { city:'Coimbatore', title:'Medical', link:'medical_college_coimbatore.html' },
+    { city:'Coimbatore', title:'Arts & Science', link:'arts_science_coimbatore.html' },
+    { city:'Trichy', title:'Engineering', link:'engineering-trichy.html' },
+    { city:'Trichy', title:'Medical', link:'medical-trichy.html' },
+    { city:'Trichy', title:'Arts & Science', link:'arts-and-science-trichy.html' },
+    { city:'Trichy', title:'Aviation', link:'aviation-trichy.html' },
+    { city:'Madurai', title:'Aviation', link:'aviaaon-maduur.html' },
+    { city:'Madurai', title:'Engineering', link:'engeerg-ma.html' }
+  ];
+  function renderFlipboards(){
+    const grid = document.getElementById('flip-grid');
+    grid.innerHTML = '';
+    FLIPS.forEach(item=>{
+      const d = document.createElement('div'); d.className='flip';
+      d.innerHTML = `<div style="font-weight:700">${item.city}</div><div style="margin-top:6px">${item.title}</div>`;
+      const btn = document.createElement('button'); btn.className='view-btn'; btn.textContent='View';
+      btn.addEventListener('click', (ev)=>{
+        ev.stopPropagation();
+        if(!currentUserUid){ authModal.style.display='flex'; return; }
+        window.open(item.link, '_blank');
+      });
+      d.appendChild(btn);
+      d.addEventListener('click', ()=> {
+        const map = { Chennai:'chennai', Pondicherry:'pondy', Coimbatore:'coimbatore', Trichy:'trichy', Madurai:'madurai' };
+        const id = map[item.city] || 'home';
+        document.querySelectorAll('[data-section]').forEach(s=>s.style.display='none');
+        const el = document.getElementById(id);
+        if(el) el.style.display='block';
+      });
+      grid.appendChild(d);
+    });
+  }
+  renderFlipboards();
 
-function loadMessages(uid){
-  db.ref("messages/" + uid).on("value", snap=>{
-    let msgs = snap.val() || {};
-    chatMessages.innerHTML = "";
+  // SAMPLE city lists
+  const SAMPLE = {
+    "Chennai": {
+      "Engineering":["IIT Madras","SSN College of Engineering","Anna University - CEG"],
+      "Medical":["Madras Medical College","Stanley Medical College"],
+      "Arts & Science":["Loyola College","Madras Christian College"]
+    },
+    "Coimbatore": {
+      "Engineering":["PSG College of Technology","Coimbatore Institute of Technology"],
+      "Medical":["Coimbatore Medical College"],
+      "Arts & Science":["PSG College of Arts & Science"]
+    },
+    "Pondicherry": {
+      "Engineering":["JIPMER (engineering list not full)"],
+      "Medical":["JIPMER"],
+      "Arts & Science":["Pondy Arts College"]
+    },
+    "Trichy": {
+      "Engineering":["NIT Trichy","Saranathan College of Engineering"],
+      "Medical":["KAPV Medical College"],
+      "Arts & Science":["Bishop Heber College"]
+    },
+    "Madurai": {
+      "Engineering":["Thiagarajar College of Engineering"],
+      "Medical":["Madurai Medical College"],
+      "Arts & Science":["The American College"]
+    }
+  };
 
-    Object.keys(msgs).forEach(k=>{
-      let m = msgs[k];
-      let cls = (m.from === "admin") ? "admin" : "user";
+  function renderCityLists(){
+    ['chennai','coimbatore','pondy','trichy','madurai'].forEach(id=>{
+      const key = id === 'pondy' ? 'Pondicherry' : id.charAt(0).toUpperCase()+id.slice(1);
+      const cont = document.getElementById(id+'-content');
+      cont.innerHTML = '';
+      const obj = SAMPLE[key] || {};
+      Object.keys(obj).forEach(cat=>{
+        const card = document.createElement('div'); card.className='card';
+        card.innerHTML = `<strong>${cat}</strong><div style="color:#666">${obj[cat].length} colleges</div>`;
+        obj[cat].forEach(c=>{
+          const r = document.createElement('div'); r.style.padding='8px'; r.style.borderBottom='1px solid #f0f0f0';
+          r.innerHTML = `<div style="font-weight:700">${c}</div><div style="color:#666" class="small">— sample info</div>`;
+          const v = document.createElement('button'); v.className='view-btn'; v.textContent='View';
+          v.onclick = (ev)=> { ev.stopPropagation(); if(!currentUserUid){ authModal.style.display='flex'; return; } alert('Open details for ' + c); };
+          r.appendChild(v);
+          card.appendChild(r);
+        });
+        cont.appendChild(card);
+      });
+    });
+  }
+  renderCityLists();
 
-      chatMessages.innerHTML += `
-        <div class="msg ${cls}">${m.text}</div>
-      `;
+  // ---------- User chat (per-user under /chats/{uid}) ----------
+  function loadUserChat(){
+    if(!currentUserUid) return;
+    userChatList.innerHTML = '<div style="font-weight:700">Your Chat</div><div style="color:#666;font-size:12px;margin-top:6px">Messages with admin</div>';
+    // clear messages area
+    chatMessages.innerHTML = '';
+    const chatRef = db.ref('chats/' + currentUserUid);
+    chatRef.off(); // remove previous listeners
+    chatRef.on('child_added', function(snap){
+      const m = snap.val();
+      const el = document.createElement('div');
+      el.className = 'msg ' + (m.from === 'admin' ? 'admin' : 'user');
+      el.innerHTML = `<div>${escapeHtml(m.text)}</div><div style="color:#666;font-size:11px;margin-top:6px">${new Date(m.time).toLocaleString()}</div>`;
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
     });
 
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  });
-}
+    // send button
+    document.getElementById('chat-send').onclick = function(){
+      const txt = document.getElementById('chat-input').value.trim();
+      if(!txt) return;
+      db.ref('chats/' + currentUserUid).push({ from:'user', text: txt, time: Date.now() });
+      document.getElementById('chat-input').value = '';
+    };
+  }
 
-function sendMessage(){
-  if(!currentChat) return;
+  // ---------- Admin UI ----------
+  function loadAdminUsers(){
+    adminUserList.innerHTML = '<div style="font-weight:700">Users</div>';
+    const usersRef = db.ref('users');
+    usersRef.off();
+    usersRef.on('value', function(snap){
+      const usersObj = snap.val() || {};
+      adminUserList.innerHTML = '<div style="font-weight:700">Users</div>';
+      Object.keys(usersObj).forEach(uid=>{
+        const u = usersObj[uid];
+        const row = document.createElement('div');
+        row.style.padding='8px'; row.style.borderBottom='1px solid #eee'; row.style.cursor='pointer';
+        row.innerHTML = `<div style="font-weight:700">${escapeHtml(u.email||uid)}</div><div style="color:#666;font-size:12px">uid: ${uid}</div>`;
+        row.onclick = ()=> openAdminChat(uid, u.email);
+        adminUserList.appendChild(row);
+      });
+    });
+  }
 
-  db.ref("messages/" + currentChat).push({
-    from:"admin",
-    text: msgInput.value,
-    time: Date.now()
-  });
+  function openAdminChat(uid, email){
+    currentAdminChatUid = uid;
+    adminChatHeader.innerHTML = `<strong>${escapeHtml(email||uid)}</strong>`;
+    adminChatMessages.innerHTML = '';
+    const chatRef = db.ref('chats/' + uid);
+    chatRef.off();
+    chatRef.on('child_added', function(snap){
+      const m = snap.val();
+      const el = document.createElement('div');
+      el.className = 'msg ' + (m.from === 'admin' ? 'admin' : 'user');
+      el.innerHTML = `<div>${escapeHtml(m.text)}</div><div style="color:#666;font-size:11px;margin-top:6px">${new Date(m.time).toLocaleString()}</div>`;
+      adminChatMessages.appendChild(el);
+      adminChatMessages.scrollTop = adminChatMessages.scrollHeight;
+    });
 
-  msgInput.value="";
-}
+    // admin send
+    adminChatSend.onclick = function(){
+      const t = adminChatInput.value.trim();
+      if(!t) return;
+      db.ref('chats/' + uid).push({ from:'admin', text: t, time: Date.now() });
+      adminChatInput.value = '';
+    };
+  }
+
+  // small helper
+  function escapeHtml(s){ if(!s) return ''; return String(s).replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+
+  // end DOMContentLoaded
+}); // DOMContentLoaded
 </script>
-  <script src="app.js" type="module"></script>
-
 
 </body>
 </html>
-
-     
