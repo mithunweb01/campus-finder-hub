@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Campus Finder Hub</title>
 
-<!-- Firebase COMPAT VERSION (MUST USE THIS) -->
-
+<!-- ✅ Firebase COMPAT version (MUST include these or page becomes white) -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
 <style>
 body {
@@ -63,25 +65,11 @@ nav a {
   <p>Welcome to Campus Finder Hub!</p>
 </div>
 
-<div id="chennai" class="tab">
-  <h2>Chennai Colleges</h2>
-</div>
-
-<div id="pondy" class="tab">
-  <h2>Pondy Colleges</h2>
-</div>
-
-<div id="coimbatore" class="tab">
-  <h2>Coimbatore Colleges</h2>
-</div>
-
-<div id="trichy" class="tab">
-  <h2>Trichy Colleges</h2>
-</div>
-
-<div id="madurai" class="tab">
-  <h2>Madurai Colleges</h2>
-</div>
+<div id="chennai" class="tab"><h2>Chennai Colleges</h2></div>
+<div id="pondy" class="tab"><h2>Pondy Colleges</h2></div>
+<div id="coimbatore" class="tab"><h2>Coimbatore Colleges</h2></div>
+<div id="trichy" class="tab"><h2>Trichy Colleges</h2></div>
+<div id="madurai" class="tab"><h2>Madurai Colleges</h2></div>
 
 <div id="messages" class="tab">
   <h2>💬 Message Board</h2>
