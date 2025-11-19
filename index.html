@@ -1,5 +1,4 @@
-<!-- FULL UPGRADED VERSION WITH REAL-TIME CHAT, BUBBLES, STATUS, DARK MODE, ADMIN PANEL, GOOGLE LOGIN, BADGE -->
-
+<!-- FINAL INDEX.HTML WITH 15 FLIPBOARDS + ADMIN MESSAGE LIST + USER -> ADMIN CHAT -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,73 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Campus Finder Hub</title>
   <link rel="icon" href="my-logo.png" />
-
   <style>
-    :root {
-      --bg: #f5f5f5;
-      --text: #000;
-      --card: white;
-      --header: #0055ff;
-    }
-    body.dark {
-      --bg: #121212;
-      --text: #fff;
-      --card: #1e1e1e;
-      --header: #0a84ff;
-    }
+    :root { --bg:#f5f5f5; --text:#000; --card:white; --header:#0055ff; }
+    body.dark { --bg:#121212; --text:#fff; --card:#1e1e1e; --header:#0a84ff; }
+    body{margin:0;font-family:Arial;background:var(--bg);color:var(--text);}    
+    header{background:var(--header);color:white;padding:15px;text-align:center;font-size:22px;display:flex;justify-content:space-between;align-items:center;}
+    #darkSwitch{background:white;padding:5px 12px;border-radius:8px;cursor:pointer;color:black;}
+    nav{display:flex;justify-content:space-around;background:var(--card);padding:10px;border-bottom:1px solid #ddd;}
+    nav button{background:none;border:none;font-size:18px;padding:8px 12px;cursor:pointer;color:var(--text);}    
+    nav button.active{color:var(--header);font-weight:bold;position:relative;}
+    .badge{position:absolute;top:0;right:-3px;background:red;color:white;font-size:12px;padding:2px 6px;border-radius:50%;}
+    .tab{display:none;padding:20px;} .show{display:block;}
 
-    body { margin:0; font-family:Arial; background:var(--bg); color:var(--text);}    
-    header { background:var(--header); color:white; padding:15px; text-align:center; font-size:22px; display:flex; justify-content:space-between; align-items:center; }
+    /* Flipboards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+    .card{perspective:1000px;}
+    .inner{position:relative;width:100%;height:180px;transition:0.7s;transform-style:preserve-3d;cursor:pointer;}
+    .card:hover .inner{transform:rotateY(180deg);}    
+    .front,.back{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:12px;font-size:18px;padding:10px;color:white;}
+    .front{background:#0077ff;} .back{background:#222;transform:rotateY(180deg);}    
+    .back a{background:white;color:black;padding:6px 12px;border-radius:6px;text-decoration:none;margin-top:10px;}
 
-    #darkSwitch { background:white; padding:5px 12px; border-radius:8px; cursor:pointer; color:black; }
+    #loginBox{max-width:350px;margin:40px auto;background:var(--card);padding:20px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,.1);}    
+    input{width:100%;padding:10px;margin:8px 0;}
 
-    nav { display:flex; justify-content:space-around; background:var(--card); padding:10px; border-bottom:1px solid #ddd; }
-    nav button { background:none; border:none; font-size:18px; padding:8px 12px; cursor:pointer; color:var(--text); }
-    nav button.active { color:var(--header); font-weight:bold; position:relative; }
+    #chatBox{height:280px;overflow-y:auto;background:var(--card);padding:10px;border-radius:12px;}
+    .bubble{padding:10px 14px;margin:10px;max-width:70%;border-radius:18px;}
+    .me{background:#0055ff;color:white;margin-left:auto;}
+    .other{background:#999;color:white;margin-right:auto;}
 
-    /* Notification Badge */
-    .badge { position:absolute; top:0; right:-3px; background:red; color:white; font-size:12px; padding:2px 6px; border-radius:50%; }
+    #userList li{padding:12px;background:var(--card);margin:6px 0;border-radius:10px;cursor:pointer;}
 
-    .tab{ display:none; padding:20px; }
-    .show{ display:block; }
-
-    /* Flip Cards */
-    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
-    .card{ perspective:1000px; }
-    .inner{ position:relative; width:100%; height:180px; transition:0.7s; transform-style:preserve-3d; cursor:pointer; }
-    .card:hover .inner{ transform:rotateY(180deg); }
-    .front,.back{
-      position:absolute;width:100%;height:100%;backface-visibility:hidden;
-      display:flex;align-items:center;justify-content:center;border-radius:12px;
-      font-size:20px;padding:10px;color:white;
-    }
-    .front{background:#0077ff;}
-    .back{background:#222;transform:rotateY(180deg);flex-direction:column;}
-    .back a{ background:white;color:black;padding:6px 12px;border-radius:6px;text-decoration:none;margin-top:10px; }
-
-    /* Login */
-    #loginBox{ max-width:350px;margin:40px auto;background:var(--card);padding:20px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,.1);}    
-    input{ width:100%;padding:10px;margin:8px 0; }
-
-    /* Chat */
-    #chatBox{ height:300px; overflow-y:auto; background:var(--card); padding:10px; border-radius:12px; }
-    .bubble{ padding:10px 14px; margin:10px; max-width:70%; border-radius:18px; }
-    .me{ background:#0055ff; color:white; margin-left:auto; }
-    .other{ background:#999; color:white; margin-right:auto; }
-    #typing{ font-size:14px; color:gray; }
-
-    /* Floating Chat Button */
-    #floatBtn{
-      position:fixed;bottom:20px;right:20px;background:#0055ff;color:white;
-      padding:16px;border-radius:50%;cursor:pointer;font-size:24px;
-      box-shadow:0 4px 10px rgba(0,0,0,.3);
-    }
-
-    /* Admin Table */
-    table{ width:100%; background:var(--card); border-radius:12px; }
-    th{ cursor:pointer; background:#0055ff; color:white; }
-    td,th{ padding:12px; border-bottom:1px solid #ccc; }
-
+    #floatBtn{position:fixed;bottom:20px;right:20px;background:#0055ff;color:white;padding:16px;border-radius:50%;cursor:pointer;font-size:24px;box-shadow:0 4px 10px rgba(0,0,0,.3);}
   </style>
 </head>
 <body>
@@ -84,7 +48,7 @@
 
 <nav>
   <button onclick="openTab('home')" class="active">Home</button>
-  <button onclick="openTab('messages')">Messages <span class="badge" id="msgBadge" style="display:none;">0</span></button>
+  <button onclick="openTab('messages')">Messages <span id="msgBadge" class="badge" style="display:none;">0</span></button>
   <button onclick="openTab('profile')">Profile</button>
 </nav>
 
@@ -98,58 +62,91 @@
   <button onclick="googleLogin()">Continue With Google</button>
 </div>
 
-<!-- HOME -->
+<!-- HOME TAB -->
 <div id="home" class="tab show">
+  <!-- Home Description -->
+  <div class="home-description" style="padding:16px; font-size:1.1rem; line-height:1.6;">
+    <h2>Welcome to Campus Finder Hub</h2>
+    <p>Your trusted platform for discovering top colleges across Tamil Nadu and India. Explore engineering, medical, arts & science, aviation colleges and more — all organized category‑wise for easy navigation. Click any board below to view detailed information.</p>
+  </div>
+
+  <!-- Flipboard Grid -->
+  <div class="flipboard-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px; padding:20px;">
+    <!-- Flipboard Template Example -->
+    <!-- Repeat for all 15 categories -->
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <h3>Engineering Colleges – Chennai</h3>
+        </div>
+        <div class="flip-card-back">
+          <ul>
+            <li>College 1</li>
+            <li>College 2</li>
+            <li>College 3</li>
+            <li>College 4</li>
+            <li>College 5</li>
+          </ul>
+          <a href="engineering_colleges_in_chennai.html" class="view-btn">View</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional boards start here -->
+
+    <!-- Engineering Chennai -->
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3>Engineering – Chennai</h3></div><div class="flip-card-back"><ul><li>College 1</li><li>College 2</li><li>College 3</li><li>College 4</li><li>College 5</li></ul><a href="engineering_colleges_in_chennai.html" class="view-btn">View</a></div></div></div>
+
+    <!-- Engineering Coimbatore -->
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3>Engineering – Coimbatore</h3></div><div class="flip-card-back"><ul><li>College 1</li><li>College 2</li><li>College 3</li><li>College 4</li><li>College 5</li></ul><a href="engineering_coimbatore.html" class="view-btn">View</a></div></div></div>
+
+    <!-- Engineering Trichy -->
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3>Engineering – Trichy</h3></div><div class="flip-card-back"><ul><li>College 1</li><li>College 2</li><li>College 3</li><li>College 4</li><li>College 5</li></ul><a href="engineering-trichy.html" class="view-btn">View</a></div></div></div>
+
+    <!-- Engineering Madurai -->
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3>Engineering – Madurai</h3></div><div class="flip-card-back"><ul><li>College 1</li><li>College 2</li><li>College 3</li><li>College 4</li><li>College 5</li></ul><a href="engeerg-ma.html" class="v
+  </div>
   <h2>Explore Colleges</h2>
   <div class="grid" id="cards"></div>
 </div>
 
-<!-- MESSAGES -->
+<!-- MESSAGES TAB -->
 <div id="messages" class="tab">
-  <h2>Chat</h2>
+  <h2>Messages</h2>
 
-  <div id="onlineStatus">Status: offline</div>
+  <!-- Admin user list -->
+  <div id="adminUserList" style="display:none;">
+    <h3>Users Who Messaged</h3>
+    <ul id="userList"></ul>
+  </div>
+
+  <h3 id="chatTitle">Chat With Admin</h3>
 
   <div id="chatBox"></div>
-  <div id="typing"></div>
-
-  <textarea id="msg" placeholder="Type..." oninput="sendTyping()" style="width:100%;height:60px"></textarea>
+  <textarea id="msg" placeholder="Type..." style="width:100%;height:60px"></textarea>
   <button onclick="sendMessage()">Send</button>
 </div>
 
-<!-- PROFILE -->
+<!-- PROFILE TAB -->
 <div id="profile" class="tab">
   <h2>Your Profile</h2>
   <img id="pfp" src="" width="100" height="100" style="border-radius:50%"><br>
   <input id="username" placeholder="Username" />
   <input id="pic" type="file" accept="image/*" />
   <button onclick="saveProfile()">Save Profile</button>
-
-  <h3>Users (Admin)</h3>
-  <table id="userTable">
-    <thead>
-      <tr>
-        <th onclick="sortUsers(0)">Username</th>
-        <th onclick="sortUsers(1)">Email</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="userRows"></tbody>
-  </table>
 </div>
 
-<!-- Floating Chat Icon -->
+<!-- FLOATING CHAT ICON -->
 <div id="floatBtn" onclick="openTab('messages')">💬</div>
 
-<!-- COMPAT FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
-
 <script>
-// INIT FIREBASE
+// FIREBASE INIT
 const firebaseConfig = {
   apiKey: "AIzaSyDjW_3cYR8apPFMmZqLqZh_9i2bN-1IEmY",
   authDomain: "college-finder-279aa.firebaseapp.com",
@@ -161,15 +158,12 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const db = firebase.database();
-const storage = firebase.storage();
-const messaging = firebase.messaging();
+const auth=firebase.auth();
+const db=firebase.database();
+const storage=firebase.storage();
 
-// DARK MODE
 function toggleDark(){ document.body.classList.toggle("dark"); }
 
-// TABS
 function openTab(tab){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('show'));
   document.getElementById(tab).classList.add('show');
@@ -177,53 +171,52 @@ function openTab(tab){
   event.target.classList.add('active');
 }
 
-// AUTH
-function login(){ auth.signInWithEmailAndPassword(email.value,password.value).then(()=>init()); }
-function signup(){ auth.createUserWithEmailAndPassword(email.value,password.value).then(()=>init()); }
-function googleLogin(){
-  var provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider).then(()=>init());
-}
+function login(){auth.signInWithEmailAndPassword(email.value,password.value).then(()=>init());}
+function signup(){auth.createUserWithEmailAndPassword(email.value,password.value).then(()=>init());}
+function googleLogin(){auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>init());}
 
-auth.onAuthStateChanged(u=>{ if(u) init(); });
+auth.onAuthStateChanged(u=>{if(u) init();});
 
 function init(){
   loginBox.style.display="none";
-  loadProfile();
   loadCards();
-  loadChat();
-  trackOnline();
-  if(auth.currentUser.email=="mithun@admin.com") loadUsers();
+  loadProfile();
+  setupMessages();
 }
 
-// FLIP CARDS
-const pages=[
-  {name:"Engineering - Trichy",file:"engineering-trichy.html"},
-  {name:"Engineering - Coimbatore",file:"engineering_coimbatore.html"},
-  {name:"Arts - Pondy",file:"arts_pondy.html"}
+/* 15 FLIPBOARDS */
+const pages = [
+  {name:"Engineering Colleges in Chennai", file:"engineering_colleges_in_chennai.html"},
+  {name:"Engineering - Trichy", file:"engineering-trichy.html"},
+  {name:"Engineering - Coimbatore", file:"engineering_coimbatore.html"},
+  {name:"Engineering - Pondy", file:"engineering_pondy.html"},
+  {name:"Medical Colleges - Chennai", file:"medical_college_in_chennai.html"},
+  {name:"Medical - Trichy", file:"medical-trichy.html"},
+  {name:"Medical - Coimbatore", file:"medical_college_coimbatore.html"},
+  {name:"Medical - Pondy", file:"medical_pondyy.html"},
+  {name:"Arts & Science - Chennai", file:"arts-science_college_chennai.html"},
+  {name:"Arts & Science - Trichy", file:"arts-and-science-trichy.html"},
+  {name:"Arts & Science - Coimbatore", file:"arts_science_coimbatore.html"},
+  {name:"Arts - Pondy", file:"arts_pondy.html"},
+  {name:"Aviation - Chennai", file:"aviaaon-maduur.html"},
+  {name:"Aviation - Trichy", file:"aviation-trichy.html"},
+  {name:"Aviation - Madurai", file:"engeerg-ma.html"}
 ];
 
 function loadCards(){
   cards.innerHTML="";
   pages.forEach(p=>{
-    cards.innerHTML+=`<div class='card'><div class='inner'><div class='front'>${p.name}</div><div class='back'>${p.name}<a href='${p.file}'>View</a></div></div></div>`;
-  })
+    cards.innerHTML+=`
+      <div class='card'>
+        <div class='inner'>
+          <div class='front'>${p.name}</div>
+          <div class='back'>${p.name}<a href='${p.file}'>View</a></div>
+        </div>
+      </div>`;
+  });
 }
 
-// PROFILE
-function saveProfile(){
-  let u=auth.currentUser;
-  let uname=username.value;
-  let file=pic.files[0];
-  if(file){
-    let ref=storage.ref("pfp/"+u.uid);
-    ref.put(file).then(()=>ref.getDownloadURL().then(url=>{
-      db.ref("users/"+u.uid).update({username:uname,pfp:url,email:u.email});
-      pfp.src=url;
-    }))
-  } else db.ref("users/"+u.uid).update({username:uname,email:u.email});
-}
-
+/* PROFILE */
 function loadProfile(){
   let u=auth.currentUser;
   db.ref("users/"+u.uid).once("value").then(s=>{
@@ -232,66 +225,71 @@ function loadProfile(){
   })
 }
 
-// ADMIN USER TABLE
-function loadUsers(){
-  db.ref("users").on("value",s=>{
-    userRows.innerHTML="";
-    s.forEach(u=>{
-      let d=u.val();
-      userRows.innerHTML+=`<tr><td>${d.username||""}</td><td>${d.email||""}</td><td>${d.online?"🟢":"⚫"}</td></tr>`;
+function saveProfile(){
+  let u=auth.currentUser;
+  let file=pic.files[0];
+  if(file){
+    let ref=storage.ref("pfp/"+u.uid);
+    ref.put(file).then(()=>ref.getDownloadURL().then(url=>{
+      db.ref("users/"+u.uid).update({username:username.value,pfp:url});
+      pfp.src=url;
+    }))
+  } else db.ref("users/"+u.uid).update({username:username.value});
+}
+
+/* NEW ADVANCED MESSAGE SYSTEM */
+let currentChat="admin";
+
+function setupMessages(){
+  let u=auth.currentUser;
+
+  if(u.email=="mithun@admin.com"){
+    adminUserList.style.display="block";
+    loadUserList();
+  }
+
+  loadChat(currentChat);
+}
+
+function loadUserList(){
+  db.ref("messages").on("value",snap=>{
+    userList.innerHTML="";
+    snap.forEach(u=>{
+      userList.innerHTML+=`<li onclick="openChat('${u.key}')">${u.key}</li>`;
     })
   })
 }
 
-function sortUsers(col){
-  let rows=[...document.querySelectorAll('#userRows tr')];
-  rows.sort((a,b)=>a.children[col].innerText.localeCompare(b.children[col].innerText));
-  userRows.innerHTML="";
-  rows.forEach(r=>userRows.appendChild(r));
+function openChat(uid){
+  currentChat=uid;
+  chatTitle.innerText="Chat With "+uid;
+  loadChat(uid);
 }
 
-// ONLINE STATUS
-function trackOnline(){
-  let u=auth.currentUser;
-  db.ref("users/"+u.uid).update({online:true});
-  window.addEventListener("beforeunload",()=>{
-    db.ref("users/"+u.uid).update({online:false});
-  })
-}
+function loadChat(to){
+  let me=auth.currentUser.uid;
+  let path=auth.currentUser.email=="mithun@admin.com" ? `messages/${to}` : `messages/${me}`;
 
-// CHAT REAL-TIME + BUBBLES
-function loadChat(){
-  db.ref("messages").on("value",s=>{
+  db.ref(path).on("value",s=>{
     chatBox.innerHTML="";
     let c=0;
     s.forEach(m=>{
       let d=m.val(); c++;
-      let me = d.uid==auth.currentUser.uid;
-      chatBox.innerHTML+=`<div class='bubble ${me?"me":"other"}'>${d.text}</div>`;
-    })
-    msgBadge.innerText=c;
-    msgBadge.style.display="inline";
+      chatBox.innerHTML+=`<div class='bubble ${d.from==me?"me":"other"}'>${d.text}</div>`;    
+    });
+    if(c>0){msgBadge.innerText=c; msgBadge.style.display="inline";}
     chatBox.scrollTop=chatBox.scrollHeight;
   })
 }
 
 function sendMessage(){
-  let u=auth.currentUser;
-  db.ref("messages").push({uid:u.uid,text:msg.value,time:Date.now()});
+  let me=auth.currentUser;
+  let path=me.email=="mithun@admin.com" ? `messages/${currentChat}` : `messages/${me.uid}`;
+
+  db.ref(path).push({from:me.uid,text:msg.value,time:Date.now()});
   msg.value="";
 }
 
-// TYPING INDICATOR
-function sendTyping(){
-  db.ref("typing").set(auth.currentUser.email);
-  setTimeout(()=>db.ref("typing").set(""),1000);
-}
-
-db.ref("typing").on("value",s=>{
-  typing.innerText=s.val()? (s.val()+" is typing...") : "";
-})
-
 </script>
-
 </body>
 </html>
