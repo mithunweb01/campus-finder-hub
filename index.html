@@ -1,253 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus Finder Hub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Finder Hub — Messages</title>
 
-<!-- Firebase COMPAT -->
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging-compat.js"></script>
+  <!-- Favicon (Option A - the image you uploaded) -->
+  <link rel="icon" type="image/png" href="8b61c6d9-cdae-4a9a-ac42-35970800f88b.png" />
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-nav {
-    background: #007bff;
-    padding: 10px;
-    display: flex;
-    gap: 15px;
-}
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-.tab { display: none; padding: 20px; }
-.active { display: block; }
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
 
-.message-box {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-}
+    header {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
 
-/* Popup styles */
-.popup-bg {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: none; justify-content: center; align-items: center;
-}
-.popup {
-    background: white; padding: 20px; width: 300px; border-radius: 8px;
-}
-</style>
+    header img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .chat-box {
+      width: 100%;
+      height: calc(100vh - 140px);
+      overflow-y: auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .msg {
+      max-width: 75%;
+      margin-bottom: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .user-msg {
+      background: #d1e7ff;
+      margin-left: auto;
+    }
+
+    .admin-msg {
+      background: white;
+      border: 1px solid #ddd;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 12px;
+      background: #fff;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 10px;
+      box-sizing: border-box;
+    }
+
+    footer input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    footer button {
+      padding: 10px 18px;
+      border: none;
+      background: black;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Login Popup */
+    #loginPopup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+    }
+
+    .popup-box {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      width: 320px;
+      text-align: center;
+    }
+
+    .popup-box img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .popup-box input {
+      width: 90%;
+      margin: 8px 0;
+      padding: 10px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <!-- Admin Fixed Profile Picture (Option C) -->
+    <img src="8b61c6d9-cdae-4a9a-ac42-35970800f88b.png" alt="Admin" />
+    <h1>Campus Finder Hub — Messages</h1>
+  </header>
 
-<nav>
-  <a onclick="openTab('home')">Home</a>
-  <a onclick="openTab('chennai')">Chennai</a>
-  <a onclick="openTab('pondy')">Pondy</a>
-  <a onclick="openTab('coimbatore')">Coimbatore</a>
-  <a onclick="openTab('trichy')">Trichy</a>
-  <a onclick="openTab('madurai')">Madurai</a>
-  <a onclick="openTab('messages')">Messages</a>
-  <a onclick="openTab('profile')">Profile</a>
-</nav>
+  <div class="chat-box" id="chatBox"></div>
 
-<!-- HOME -->
-<div id="home" class="tab active">
-  <h2>Home</h2>
-  <p>Welcome to Campus Finder Hub!</p>
-</div>
+  <footer>
+    <input type="text" id="msgInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </footer>
 
-<div id="chennai" class="tab"><h2>Chennai Colleges</h2></div>
-<div id="pondy" class="tab"><h2>Pondy Colleges</h2></div>
-<div id="coimbatore" class="tab"><h2>Coimbatore Colleges</h2></div>
-<div id="trichy" class="tab"><h2>Trichy Colleges</h2></div>
-<div id="madurai" class="tab"><h2>Madurai Colleges</h2></div>
-
-<!-- MESSAGES TAB -->
-<div id="messages" class="tab">
-  <h2>💬 Message Board</h2>
-  <div id="messageList"></div>
-  <input id="messageInput" class="message-box" placeholder="Type your message...">
-  <button onclick="sendMessage()">Send</button>
-</div>
-
-<!-- PROFILE TAB -->
-<div id="profile" class="tab">
-  <h2>Your Profile</h2>
-  <div id="profileContent">Loading...</div>
-</div>
-
-<!-- LOGIN POPUP -->
-<div id="loginPopup" class="popup-bg">
-  <div class="popup">
-    <h3>Login</h3>
-    <input id="loginEmail" placeholder="Email"><br><br>
-    <input id="loginPass" type="password" placeholder="Password"><br><br>
-    <button onclick="login()">Login</button>
-    <p onclick="showSignup()">Create account</p>
+  <!-- LOGIN POPUP -->
+  <div id="loginPopup">
+    <div class="popup-box">
+      <!-- Login Icon (Option B) -->
+      <img src="8b61c6d9-cdae-4a9a-ac42-35970800f88b.png" />
+      <h2>Admin Login</h2>
+      <input type="email" id="adminEmail" placeholder="Enter email" />
+      <input type="password" id="adminPass" placeholder="Password" />
+      <button onclick="verifyLogin()" style="margin-top: 10px; width: 100%;">Login</button>
+    </div>
   </div>
-</div>
-
-<!-- SIGNUP POPUP -->
-<div id="signupPopup" class="popup-bg">
-  <div class="popup">
-    <h3>Sign Up</h3>
-    <input id="signupEmail" placeholder="Email"><br><br>
-    <input id="signupPass" type="password" placeholder="Password"><br><br>
-    <button onclick="signup()">Create Account</button>
-  </div>
-</div>
-
-<!-- USERNAME POPUP -->
-<div id="usernamePopup" class="popup-bg">
-  <div class="popup">
-    <h3>Choose Username</h3>
-    <input id="usernameInput" placeholder="Your username"><br><br>
-    <button onclick="saveUsername()">Save</button>
-  </div>
-</div>
 
 <script>
-function openTab(tab) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(tab).classList.add('active');
-}
+  const ADMIN_EMAIL = "mithun@admin.com";
+  const ADMIN_PASS = "admin123";
 
-/* ---------- FIREBASE INIT ---------- */
-const firebaseConfig = {
-  apiKey: "AIzaSyDjW_3cYR8apPFMmZqLqZh_9i2bN-1IEmY",
-  authDomain: "college-finder-279aa.firebaseapp.com",
-  databaseURL: "https://college-finder-279aa-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "college-finder-279aa",
-  storageBucket: "college-finder-279aa.firebasestorage.app",
-  messagingSenderId: "94401695690",
-  appId: "1:94401695690:web:380de91d4f168ea2944933"
-};
+  const loginPopup = document.getElementById("loginPopup");
+  const chatBox = document.getElementById("chatBox");
 
-firebase.initializeApp(firebaseConfig);
+  window.onload = () => {
+    loginPopup.style.display = "flex";
+  };
 
-const auth = firebase.auth();
-const db   = firebase.database();
-const msg  = firebase.messaging();
+  function verifyLogin() {
+    let email = document.getElementById("adminEmail").value;
+    let pass = document.getElementById("adminPass").value;
 
-/* -------- SHOW LOGIN FIRST -------- */
-auth.onAuthStateChanged(user => {
-    if (!user) {
-        loginPopup.style.display = "flex";
-        return;
+    if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+      loginPopup.style.display = "none";
+    } else {
+      alert("Incorrect login details");
     }
+  }
 
-    loginPopup.style.display = "none";
+  function sendMessage() {
+    let msg = document.getElementById("msgInput").value;
+    if (!msg) return;
 
-    db.ref("users/" + user.uid).once("value").then(s => {
-        if (!s.exists() || !s.val().username) {
-            usernamePopup.style.display = "flex";
-        } else {
-            loadProfile();
-        }
-    });
-});
+    let bubble = document.createElement("div");
+    bubble.className = "msg user-msg";
+    bubble.innerText = msg;
+    chatBox.appendChild(bubble);
 
-/* -------- LOGIN -------- */
-function login() {
-    auth.signInWithEmailAndPassword(
-        loginEmail.value, loginPass.value
-    ).catch(alert);
-}
-
-/* -------- SIGNUP -------- */
-function signup() {
-    auth.createUserWithEmailAndPassword(
-        signupEmail.value, signupPass.value
-    ).then((u) => {
-        signupPopup.style.display = "none";
-        usernamePopup.style.display = "flex";
-        db.ref("users/" + u.user.uid).set({
-            email: signupEmail.value,
-            joined: Date.now(),
-            messages: 0
-        });
-    }).catch(alert);
-}
-
-/* -------- SAVE USERNAME -------- */
-function saveUsername() {
-    const name = usernameInput.value.trim();
-    if (!name) return;
-
-    db.ref("users/" + auth.currentUser.uid).update({
-        username: name
-    });
-
-    usernamePopup.style.display = "none";
-    loadProfile();
-}
-
-/* -------- LOAD PROFILE -------- */
-function loadProfile() {
-    const uid = auth.currentUser.uid;
-
-    db.ref("users/" + uid).on("value", s => {
-        let u = s.val();
-        profileContent.innerHTML = `
-            <p><b>Username:</b> ${u.username}</p>
-            <p><b>Email:</b> ${u.email}</p>
-            <p><b>Messages Sent:</b> ${u.messages || 0}</p>
-            <p><b>Joined:</b> ${new Date(u.joined).toLocaleString()}</p>
-        `;
-    });
-
-    requestNotificationPermission();
-}
-
-/* ---------- MESSAGES ---------- */
-db.ref("messages").on("value", snap => {
-    let html = "";
-    snap.forEach(d => {
-        let m = d.val();
-        html += `<p><b>${m.username || "User"}:</b> ${m.text}</p>`;
-    });
-    messageList.innerHTML = html;
-});
-
-function sendMessage() {
-    const user = auth.currentUser;
-    const text = messageInput.value;
-
-    if (!text.trim()) return;
-
-    db.ref("users/" + user.uid + "/messages").transaction(n => (n || 0) + 1);
-
-    db.ref("messages").push({
-        uid: user.uid,
-        username: (auth.currentUser.displayName || "User"),
-        text: text,
-        time: Date.now()
-    });
-
-    messageInput.value = "";
-}
-
-/* ---------- PUSH NOTIFICATIONS ---------- */
-function requestNotificationPermission() {
-    msg.requestPermission()
-    .then(() => msg.getToken())
-    .then(token => {
-        db.ref("users/" + auth.currentUser.uid).update({ token });
-    })
-    .catch(() => console.log("Notifications blocked"));
-}
+    document.getElementById("msgInput").value = "";
+  }
 </script>
 
 </body>
