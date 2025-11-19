@@ -5,44 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Campus Finder Hub</title>
 
-<!-- ✅ Firebase COMPAT version (MUST include these or page becomes white) -->
+<!-- Firebase COMPAT -->
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging-compat.js"></script>
 
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
-
-/* Simple navbar */
 nav {
     background: #007bff;
     padding: 10px;
     display: flex;
     gap: 15px;
 }
-
 nav a {
     color: white;
     text-decoration: none;
     font-size: 18px;
 }
-
-.tab {
-    display: none;
-    padding: 20px;
-}
-
-.active {
-    display: block;
-}
+.tab { display: none; padding: 20px; }
+.active { display: block; }
 
 .message-box {
     width: 100%;
     padding: 8px;
     margin-top: 10px;
+}
+
+/* Popup styles */
+.popup-bg {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none; justify-content: center; align-items: center;
+}
+.popup {
+    background: white; padding: 20px; width: 300px; border-radius: 8px;
 }
 </style>
 </head>
@@ -50,16 +52,17 @@ nav a {
 <body>
 
 <nav>
-  <a href="#" onclick="openTab('home')">Home</a>
-  <a href="#" onclick="openTab('chennai')">Chennai</a>
-  <a href="#" onclick="openTab('pondy')">Pondy</a>
-  <a href="#" onclick="openTab('coimbatore')">Coimbatore</a>
-  <a href="#" onclick="openTab('trichy')">Trichy</a>
-  <a href="#" onclick="openTab('madurai')">Madurai</a>
-  <a href="#" onclick="openTab('messages')">Messages</a>
+  <a onclick="openTab('home')">Home</a>
+  <a onclick="openTab('chennai')">Chennai</a>
+  <a onclick="openTab('pondy')">Pondy</a>
+  <a onclick="openTab('coimbatore')">Coimbatore</a>
+  <a onclick="openTab('trichy')">Trichy</a>
+  <a onclick="openTab('madurai')">Madurai</a>
+  <a onclick="openTab('messages')">Messages</a>
+  <a onclick="openTab('profile')">Profile</a>
 </nav>
 
-<!-- TABS -->
+<!-- HOME -->
 <div id="home" class="tab active">
   <h2>Home</h2>
   <p>Welcome to Campus Finder Hub!</p>
@@ -71,20 +74,54 @@ nav a {
 <div id="trichy" class="tab"><h2>Trichy Colleges</h2></div>
 <div id="madurai" class="tab"><h2>Madurai Colleges</h2></div>
 
+<!-- MESSAGES TAB -->
 <div id="messages" class="tab">
   <h2>💬 Message Board</h2>
-
   <div id="messageList"></div>
-
   <input id="messageInput" class="message-box" placeholder="Type your message...">
   <button onclick="sendMessage()">Send</button>
 </div>
 
+<!-- PROFILE TAB -->
+<div id="profile" class="tab">
+  <h2>Your Profile</h2>
+  <div id="profileContent">Loading...</div>
+</div>
+
+<!-- LOGIN POPUP -->
+<div id="loginPopup" class="popup-bg">
+  <div class="popup">
+    <h3>Login</h3>
+    <input id="loginEmail" placeholder="Email"><br><br>
+    <input id="loginPass" type="password" placeholder="Password"><br><br>
+    <button onclick="login()">Login</button>
+    <p onclick="showSignup()">Create account</p>
+  </div>
+</div>
+
+<!-- SIGNUP POPUP -->
+<div id="signupPopup" class="popup-bg">
+  <div class="popup">
+    <h3>Sign Up</h3>
+    <input id="signupEmail" placeholder="Email"><br><br>
+    <input id="signupPass" type="password" placeholder="Password"><br><br>
+    <button onclick="signup()">Create Account</button>
+  </div>
+</div>
+
+<!-- USERNAME POPUP -->
+<div id="usernamePopup" class="popup-bg">
+  <div class="popup">
+    <h3>Choose Username</h3>
+    <input id="usernameInput" placeholder="Your username"><br><br>
+    <button onclick="saveUsername()">Save</button>
+  </div>
+</div>
+
 <script>
-/* ---------- TAB FUNCTION ---------- */
-function openTab(tabName) {
+function openTab(tab) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(tabName).classList.add('active');
+    document.getElementById(tab).classList.add('active');
 }
 
 /* ---------- FIREBASE INIT ---------- */
@@ -95,35 +132,121 @@ const firebaseConfig = {
   projectId: "college-finder-279aa",
   storageBucket: "college-finder-279aa.firebasestorage.app",
   messagingSenderId: "94401695690",
-  appId: "1:94401695690:web:380de91d4f168ea2944933",
-  measurementId: "G-NYKK0LYV1S"
+  appId: "1:94401695690:web:380de91d4f168ea2944933"
 };
 
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
-const db = firebase.database();
+const auth = firebase.auth();
+const db   = firebase.database();
+const msg  = firebase.messaging();
 
-/* ---------- LOAD MESSAGES ---------- */
-db.ref("messages").on("value", snapshot => {
-    let html = "";
-    snapshot.forEach(data => {
-        html += `<p><b>User:</b> ${data.val().text}</p>`;
+/* -------- SHOW LOGIN FIRST -------- */
+auth.onAuthStateChanged(user => {
+    if (!user) {
+        loginPopup.style.display = "flex";
+        return;
+    }
+
+    loginPopup.style.display = "none";
+
+    db.ref("users/" + user.uid).once("value").then(s => {
+        if (!s.exists() || !s.val().username) {
+            usernamePopup.style.display = "flex";
+        } else {
+            loadProfile();
+        }
     });
-    document.getElementById("messageList").innerHTML = html;
 });
 
-/* ---------- SEND MESSAGE ---------- */
+/* -------- LOGIN -------- */
+function login() {
+    auth.signInWithEmailAndPassword(
+        loginEmail.value, loginPass.value
+    ).catch(alert);
+}
+
+/* -------- SIGNUP -------- */
+function signup() {
+    auth.createUserWithEmailAndPassword(
+        signupEmail.value, signupPass.value
+    ).then((u) => {
+        signupPopup.style.display = "none";
+        usernamePopup.style.display = "flex";
+        db.ref("users/" + u.user.uid).set({
+            email: signupEmail.value,
+            joined: Date.now(),
+            messages: 0
+        });
+    }).catch(alert);
+}
+
+/* -------- SAVE USERNAME -------- */
+function saveUsername() {
+    const name = usernameInput.value.trim();
+    if (!name) return;
+
+    db.ref("users/" + auth.currentUser.uid).update({
+        username: name
+    });
+
+    usernamePopup.style.display = "none";
+    loadProfile();
+}
+
+/* -------- LOAD PROFILE -------- */
+function loadProfile() {
+    const uid = auth.currentUser.uid;
+
+    db.ref("users/" + uid).on("value", s => {
+        let u = s.val();
+        profileContent.innerHTML = `
+            <p><b>Username:</b> ${u.username}</p>
+            <p><b>Email:</b> ${u.email}</p>
+            <p><b>Messages Sent:</b> ${u.messages || 0}</p>
+            <p><b>Joined:</b> ${new Date(u.joined).toLocaleString()}</p>
+        `;
+    });
+
+    requestNotificationPermission();
+}
+
+/* ---------- MESSAGES ---------- */
+db.ref("messages").on("value", snap => {
+    let html = "";
+    snap.forEach(d => {
+        let m = d.val();
+        html += `<p><b>${m.username || "User"}:</b> ${m.text}</p>`;
+    });
+    messageList.innerHTML = html;
+});
+
 function sendMessage() {
-    const msg = document.getElementById("messageInput").value;
-    if (!msg.trim()) return;
+    const user = auth.currentUser;
+    const text = messageInput.value;
+
+    if (!text.trim()) return;
+
+    db.ref("users/" + user.uid + "/messages").transaction(n => (n || 0) + 1);
 
     db.ref("messages").push({
-        text: msg,
+        uid: user.uid,
+        username: (auth.currentUser.displayName || "User"),
+        text: text,
         time: Date.now()
     });
 
-    document.getElementById("messageInput").value = "";
+    messageInput.value = "";
+}
+
+/* ---------- PUSH NOTIFICATIONS ---------- */
+function requestNotificationPermission() {
+    msg.requestPermission()
+    .then(() => msg.getToken())
+    .then(token => {
+        db.ref("users/" + auth.currentUser.uid).update({ token });
+    })
+    .catch(() => console.log("Notifications blocked"));
 }
 </script>
 
